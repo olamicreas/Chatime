@@ -11,6 +11,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+  <!-- AOS (Animate On Scroll) CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -45,11 +48,12 @@
     }
   </script>
 
-  <!-- GSAP + plugins + Lenis -->
+  <!-- GSAP (Kept only for the floating boba physics & map path) + Lenis -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/MotionPathPlugin.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@0.2.32/dist/lenis.min.js" defer></script>
+  <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
 
   <style>
     body { background-color: #FCFAFD; overflow-x: hidden; }
@@ -90,7 +94,6 @@
     <div class="max-w-7xl mx-auto px-6 h-16 md:h-20 flex items-center justify-between">
       <a href="#top" class="flex items-center gap-2 md:gap-3 group">
         <div class="overflow-hidden rounded-xl w-10 h-10 md:w-12 md:h-12 shadow-sm bg-brand-800 p-1">
-          <!-- Logo container simulating brand -->
           <img src="Chatime_Stacked Logo_Social media_2.jpg" alt="Chatime logo" class="w-full h-full object-cover rounded-lg group-hover:scale-110 transition-transform duration-500" />
         </div>
         <span class="font-display font-bold text-lg md:text-xl text-brand-800 tracking-tight">Cha<span class="text-accent">time</span><span class="text-brand-500 text-xs md:text-sm ml-1 font-semibold">Mobile</span></span>
@@ -121,7 +124,8 @@
 
   <main>
     <!-- HERO -->
-    <section id="top" class="relative min-h-[90vh] md:min-h-[95vh] flex items-center justify-center pt-24 md:pt-20 overflow-hidden rounded-b-[2rem] md:rounded-b-[3rem] shadow-soft bg-brand-950">
+    <!-- Added significantly larger border-radius for an ultra-fine curve -->
+    <section id="top" class="relative min-h-[90vh] md:min-h-[95vh] flex items-center justify-center pt-24 md:pt-20 overflow-hidden rounded-b-[3rem] md:rounded-b-[4rem] lg:rounded-b-[5rem] shadow-soft bg-brand-950">
       <div class="absolute inset-0 z-0">
         <img src="https://images.unsplash.com/photo-1558857563-b371033873b8?q=80&w=2000&auto=format&fit=crop" alt="Boba background" class="w-full h-full object-cover object-center opacity-70" />
       </div>
@@ -131,23 +135,23 @@
       <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 w-full flex flex-col lg:flex-row items-center justify-between gap-8 md:gap-12">
         
         <div class="max-w-3xl text-white mt-4 md:mt-0 pb-16 md:pb-0">
-          <span class="hero-anim inline-block py-1 px-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-accent text-xs md:text-sm font-bold tracking-wider uppercase mb-4 md:mb-6 shadow-lg">
+          <span data-aos="fade-up" class="inline-block py-1 px-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-accent text-xs md:text-sm font-bold tracking-wider uppercase mb-4 md:mb-6 shadow-lg">
             <i class="fa-solid fa-leaf mr-1"></i> Events • Weddings • Corporate
           </span>
           
-          <h1 class="hero-anim font-display font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.1] mb-4 md:mb-6 drop-shadow-lg">
+          <h1 data-aos="fade-up" data-aos-delay="100" class="font-display font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.1] mb-4 md:mb-6 drop-shadow-lg">
             Bring the <span class="text-accent">Boba</span> Experience to You.
           </h1>
           
-          <p class="hero-anim text-base text-gray-200 mb-6 leading-relaxed font-light block md:hidden">
+          <p data-aos="fade-up" data-aos-delay="200" class="text-base text-gray-200 mb-6 leading-relaxed font-light block md:hidden">
             Custom bubble tea & waffle packages for any event. Select a service below to start your quote!
           </p>
-          <p class="hero-anim text-lg md:text-xl text-gray-200 mb-8 md:mb-10 leading-relaxed font-light max-w-2xl hidden md:block">
+          <p data-aos="fade-up" data-aos-delay="200" class="text-lg md:text-xl text-gray-200 mb-8 md:mb-10 leading-relaxed font-light max-w-2xl hidden md:block">
             From our fully-equipped food trucks to elegant pop-up carts, chilled coolers, and fresh bubble waffles — we customize the perfect package for your event.
           </p>
 
           <!-- Interactive Selector -->
-          <div class="hero-anim glass-dark p-2.5 md:p-3 rounded-2xl inline-flex flex-col gap-2 md:gap-3 w-full sm:w-auto shadow-2xl border border-white/10">
+          <div data-aos="fade-up" data-aos-delay="300" class="glass-dark p-2.5 md:p-3 rounded-2xl inline-flex flex-col gap-2 md:gap-3 w-full sm:w-auto shadow-2xl border border-white/10">
             <span class="text-xs md:text-sm font-semibold text-gray-300 px-2 uppercase tracking-wide">Select your interest:</span>
             <div class="flex flex-wrap gap-2">
               <button data-service="truck" class="service-btn flex-1 sm:flex-none px-3 md:px-4 py-2 rounded-xl transition-all duration-300 font-medium flex items-center justify-center gap-2 text-xs md:text-sm group border">
@@ -168,14 +172,13 @@
             </div>
           </div>
           
-          <div class="hero-anim mt-6 md:mt-8 flex gap-4">
+          <div data-aos="fade-up" data-aos-delay="400" class="mt-6 md:mt-8 flex gap-4">
              <a id="cta-request" href="#booking" class="bg-accent text-brand-950 px-6 md:px-8 py-3.5 md:py-4 rounded-xl font-bold shadow-lg hover:bg-accent-hover hover:shadow-accent/40 hover:-translate-y-1 transition-all duration-300 w-full sm:w-auto text-center">
                Get Custom Quote
              </a>
           </div>
         </div>
 
-        <!-- Boba Canvas Area -->
         <div class="hidden lg:block relative w-[400px] h-[500px]" aria-hidden="true">
           <div id="boba-canvas" class="absolute inset-0 z-30 pointer-events-none"></div>
           <div class="absolute bottom-0 right-0 w-full h-[80%] bg-gradient-to-t from-brand-950/80 to-transparent rounded-b-full blur-xl z-20"></div>
@@ -191,17 +194,17 @@
     <!-- STORY SECTION -->
     <section id="story" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
       <div class="grid lg:grid-cols-2 gap-12 md:gap-16 items-center">
-        <div class="relative reveal-left">
-          <div class="rounded-[2rem] overflow-hidden shadow-2xl relative z-10 w-[90%] md:w-[85%] mx-auto lg:mx-0 border border-brand-100">
-            <img src="cup.JPG" alt="Bubble tea closeup" class="w-full h-auto object-cover hover:scale-105 transition-transform duration-700">
+        <div class="relative" data-aos="fade-right">
+          <div class="rounded-[2rem] overflow-hidden shadow-2xl relative z-10 w-[90%] md:w-[85%] mx-auto lg:mx-0 border border-brand-100 bg-white">
+            <img src="cup.JPG" alt="Bubble tea closeup" class="w-full h-auto object-cover hover:scale-105 transition-transform duration-700 block">
           </div>
-          <div class="absolute bottom-[-10%] right-0 w-[60%] md:w-[55%] rounded-[2rem] overflow-hidden shadow-2xl border-4 border-[#FCFAFD] z-20">
-            <img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1742343649328-BWPU3VJG1D2MFBZM1KDO/404309117_865856525549030_6807325054824529706_n.jpg?format=500w" alt="Making bubble tea" class="w-full h-auto object-cover hover:scale-105 transition-transform duration-700">
+          <div class="absolute bottom-[-10%] right-0 w-[60%] md:w-[55%] rounded-[2rem] overflow-hidden shadow-2xl border-4 border-[#FCFAFD] z-20 bg-white">
+            <img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1742343649328-BWPU3VJG1D2MFBZM1KDO/404309117_865856525549030_6807325054824529706_n.jpg?format=500w" alt="Making bubble tea" class="w-full h-auto object-cover hover:scale-105 transition-transform duration-700 block">
           </div>
           <div class="absolute -top-6 -left-6 w-24 h-24 bg-brand-100 rounded-full mix-blend-multiply blur-xl"></div>
         </div>
 
-        <div class="reveal-right glass-panel p-6 sm:p-10 md:p-14 rounded-[2rem] md:rounded-[2.5rem] shadow-soft relative overflow-hidden mt-8 lg:mt-0">
+        <div data-aos="fade-left" class="glass-panel p-6 sm:p-10 md:p-14 rounded-[2rem] md:rounded-[2.5rem] shadow-soft relative overflow-hidden mt-8 lg:mt-0">
           <div class="absolute top-0 right-0 w-32 h-32 bg-accent/20 rounded-full blur-2xl"></div>
           <h2 class="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-brand-800 mb-4 md:mb-6 leading-tight">Premium Ingredients.<br>Memorable Moments.</h2>
           <p class="text-gray-600 text-base md:text-lg mb-6 md:mb-8 leading-relaxed">
@@ -228,17 +231,17 @@
     <!-- SERVICES -->
     <section id="services" class="py-16 md:py-24 bg-white relative">
       <div class="max-w-7xl mx-auto px-4 sm:px-6">
-        <div class="text-center max-w-2xl mx-auto mb-10 md:mb-16 reveal-up">
+        <div class="text-center max-w-2xl mx-auto mb-10 md:mb-16" data-aos="fade-up">
           <h2 class="font-display font-bold text-3xl md:text-5xl text-brand-900 mb-3 md:mb-4">Our Services</h2>
           <p class="text-gray-500 text-base md:text-lg">Select the perfect service style for your guest count, venue type, and culinary desires.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           
-          <a href="#booking" data-service-target="truck" class="service-card group block bg-white rounded-3xl overflow-hidden shadow-soft border border-brand-50 hover:shadow-2xl hover:border-brand-200 transition-all duration-500 relative flex flex-col h-full">
-            <div class="relative h-48 md:h-56 overflow-hidden flex-shrink-0">
+          <a href="#booking" data-service-target="truck" data-aos="fade-up" data-aos-delay="0" class="service-card group block bg-white rounded-3xl overflow-hidden shadow-soft border border-brand-50 hover:shadow-2xl hover:border-brand-200 transition-all duration-500 relative flex flex-col h-full">
+            <div class="relative h-48 md:h-56 overflow-hidden flex-shrink-0 bg-gray-100">
               <div class="absolute inset-0 bg-brand-900/10 group-hover:bg-transparent transition-colors z-10"></div>
-              <img src="foodtruck.jpg" alt="Food truck" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+              <img src="foodtruck.jpg" alt="Food truck" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 block">
               <div class="absolute top-4 right-4 z-20 bg-white/95 backdrop-blur text-brand-800 text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">Full Service</div>
             </div>
             <div class="p-6 relative flex flex-col flex-grow">
@@ -250,10 +253,10 @@
             </div>
           </a>
 
-          <a href="#booking" data-service-target="cart" class="service-card group block bg-white rounded-3xl overflow-hidden shadow-soft border border-brand-50 hover:shadow-2xl hover:border-brand-200 transition-all duration-500 relative flex flex-col h-full">
-            <div class="relative h-48 md:h-56 overflow-hidden flex-shrink-0">
+          <a href="#booking" data-service-target="cart" data-aos="fade-up" data-aos-delay="100" class="service-card group block bg-white rounded-3xl overflow-hidden shadow-soft border border-brand-50 hover:shadow-2xl hover:border-brand-200 transition-all duration-500 relative flex flex-col h-full">
+            <div class="relative h-48 md:h-56 overflow-hidden flex-shrink-0 bg-gray-100">
               <div class="absolute inset-0 bg-brand-900/10 group-hover:bg-transparent transition-colors z-10"></div>
-              <img src="cart.jpg" alt="Boba cart setup" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+              <img src="cart.jpg" alt="Boba cart setup" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 block">
               <div class="absolute top-4 right-4 z-20 bg-white/95 backdrop-blur text-brand-800 text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">Pop-up Style</div>
             </div>
             <div class="p-6 relative flex flex-col flex-grow">
@@ -265,10 +268,10 @@
             </div>
           </a>
 
-          <a href="#booking" data-service-target="cooler" class="service-card group block bg-white rounded-3xl overflow-hidden shadow-soft border border-brand-50 hover:shadow-2xl hover:border-brand-200 transition-all duration-500 relative flex flex-col h-full">
-            <div class="relative h-48 md:h-56 overflow-hidden flex-shrink-0">
+          <a href="#booking" data-service-target="cooler" data-aos="fade-up" data-aos-delay="200" class="service-card group block bg-white rounded-3xl overflow-hidden shadow-soft border border-brand-50 hover:shadow-2xl hover:border-brand-200 transition-all duration-500 relative flex flex-col h-full">
+            <div class="relative h-48 md:h-56 overflow-hidden flex-shrink-0 bg-gray-100">
               <div class="absolute inset-0 bg-brand-900/10 group-hover:bg-transparent transition-colors z-10"></div>
-              <img src="https://down-vn.img.susercontent.com/file/vn-11134207-7ras8-m2l0tcuvmvwm15" alt="Cooler drinks" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+              <img src="https://down-vn.img.susercontent.com/file/vn-11134207-7ras8-m2l0tcuvmvwm15" alt="Cooler drinks" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 block">
               <div class="absolute top-4 right-4 z-20 bg-white/95 backdrop-blur text-brand-800 text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">Drop-off / Self-Serve</div>
             </div>
             <div class="p-6 relative flex flex-col flex-grow">
@@ -280,7 +283,7 @@
             </div>
           </a>
 
-          <a href="#booking" data-service-target="catering" class="service-card group block bg-brand-800 text-white rounded-3xl overflow-hidden shadow-soft hover:shadow-2xl hover:shadow-brand-800/30 transition-all duration-500 relative md:col-span-2 lg:col-span-2 h-full">
+          <a href="#booking" data-service-target="catering" data-aos="fade-up" data-aos-delay="0" class="service-card group block bg-brand-800 text-white rounded-3xl overflow-hidden shadow-soft hover:shadow-2xl hover:shadow-brand-800/30 transition-all duration-500 relative md:col-span-2 lg:col-span-2 h-full">
             <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=1200')] opacity-20 mix-blend-overlay bg-cover bg-center group-hover:scale-110 transition-transform duration-1000"></div>
             <div class="p-6 md:p-10 relative h-full flex flex-col justify-between z-10">
               <div>
@@ -301,10 +304,10 @@
             </div>
           </a>
 
-          <a href="#booking" data-service-target="waffles" class="service-card group block bg-orange-50 rounded-3xl overflow-hidden shadow-soft border border-orange-100 hover:shadow-2xl transition-all duration-500 relative md:col-span-2 lg:col-span-1 h-full flex flex-col">
-            <div class="relative h-48 md:h-56 overflow-hidden flex-shrink-0">
+          <a href="#booking" data-service-target="waffles" data-aos="fade-up" data-aos-delay="100" class="service-card group block bg-orange-50 rounded-3xl overflow-hidden shadow-soft border border-orange-100 hover:shadow-2xl transition-all duration-500 relative md:col-span-2 lg:col-span-1 h-full flex flex-col">
+            <div class="relative h-48 md:h-56 overflow-hidden flex-shrink-0 bg-gray-100">
               <div class="absolute inset-0 bg-orange-900/10 group-hover:bg-transparent transition-colors z-10"></div>
-              <img src="https://images.squarespace-cdn.com/content/v1/663084cccfc3de689f4c309d/e6c444ef-aec7-4945-bb3e-3d41138d962d/IMG_1859.jpg?format=2500w" alt="Bubble Waffles" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+              <img src="https://images.squarespace-cdn.com/content/v1/663084cccfc3de689f4c309d/e6c444ef-aec7-4945-bb3e-3d41138d962d/IMG_1859.jpg?format=2500w" alt="Bubble Waffles" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 block">
               <div class="absolute top-4 right-4 z-20 bg-orange-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm"><i class="fa-solid fa-utensils"></i> Food Add-On</div>
             </div>
             <div class="p-6 relative flex flex-col flex-grow">
@@ -322,7 +325,7 @@
 
     <!-- MENU PREVIEW -->
     <section id="menu" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6">
-      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-12 gap-4 md:gap-6 reveal-up">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-12 gap-4 md:gap-6" data-aos="fade-up">
         <div>
           <h2 class="font-display font-bold text-3xl md:text-5xl text-brand-900 mb-2 md:mb-4">Crowd Favorites</h2>
           <p class="text-gray-500 text-base md:text-lg max-w-lg">A sneak peek at our most requested flavors. Full menu customization available for events.</p>
@@ -333,10 +336,10 @@
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <article class="card3d perspective-1000 group cursor-pointer h-full">
+        <article class="card3d perspective-1000 group cursor-pointer h-full" data-aos="fade-up" data-aos-delay="0">
           <div class="inner glass-panel p-4 rounded-[2rem] shadow-soft transition-shadow group-hover:shadow-2xl h-full flex flex-col">
-            <div class="rounded-2xl overflow-hidden mb-4 relative flex-grow">
-               <img src="https://images.food52.com/bgGP_hq4itaBRLagVH1Vq1novjc=/ff0c177a-14d7-47f7-92a0-ecbf51c0443b--2019-0430_homemade-brown-sugar-boba_3x2_ty-mecham_023.jpeg?w=3840&q=75" alt="Pearl milk tea" class="w-full h-48 md:h-56 object-cover">
+            <div class="rounded-2xl overflow-hidden mb-4 relative flex-grow bg-gray-100">
+               <img src="https://images.food52.com/bgGP_hq4itaBRLagVH1Vq1novjc=/ff0c177a-14d7-47f7-92a0-ecbf51c0443b--2019-0430_homemade-brown-sugar-boba_3x2_ty-mecham_023.jpeg?w=3840&q=75" alt="Pearl milk tea" class="w-full h-48 md:h-56 object-cover block">
                <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                <span class="absolute bottom-3 left-3 bg-white/20 backdrop-blur-md text-white text-xs font-bold px-2 py-1 rounded shadow">#1 Best Seller</span>
             </div>
@@ -347,10 +350,10 @@
           </div>
         </article>
 
-        <article class="card3d perspective-1000 group cursor-pointer h-full">
+        <article class="card3d perspective-1000 group cursor-pointer h-full" data-aos="fade-up" data-aos-delay="100">
           <div class="inner glass-panel p-4 rounded-[2rem] shadow-soft transition-shadow group-hover:shadow-2xl h-full flex flex-col border-brand-50">
-            <div class="rounded-2xl overflow-hidden mb-4 relative flex-grow">
-               <img src="https://lh7-rt.googleusercontent.com/docsz/AD_4nXcaTBLqpMR9DCMaol2Shz2BUHnhuwfdnbiINVwjkh4OVyvKXI9Hw8cqPMmYid2ybGY07aEtstUmpliXH2m_RFvmz-ma3GCRIlG9CYQDrtqz1ivq3eZDfJN1v0uxox609LGaiHgatg?key=0uRYkzTVb6_zdCbGMkkZ_A" alt="Taro milk tea" class="w-full h-48 md:h-56 object-cover">
+            <div class="rounded-2xl overflow-hidden mb-4 relative flex-grow bg-gray-100">
+               <img src="https://lh7-rt.googleusercontent.com/docsz/AD_4nXcaTBLqpMR9DCMaol2Shz2BUHnhuwfdnbiINVwjkh4OVyvKXI9Hw8cqPMmYid2ybGY07aEtstUmpliXH2m_RFvmz-ma3GCRIlG9CYQDrtqz1ivq3eZDfJN1v0uxox609LGaiHgatg?key=0uRYkzTVb6_zdCbGMkkZ_A" alt="Taro milk tea" class="w-full h-48 md:h-56 object-cover block">
             </div>
             <div class="px-2 pb-2">
               <h4 class="font-bold text-lg text-brand-900">Taro Fantasy</h4>
@@ -359,10 +362,10 @@
           </div>
         </article>
 
-        <article class="card3d perspective-1000 group cursor-pointer h-full">
+        <article class="card3d perspective-1000 group cursor-pointer h-full" data-aos="fade-up" data-aos-delay="200">
           <div class="inner glass-panel p-4 rounded-[2rem] shadow-soft transition-shadow group-hover:shadow-2xl h-full flex flex-col border-brand-50">
-            <div class="rounded-2xl overflow-hidden mb-4 relative flex-grow">
-               <img src="https://takestwoeggs.com/wp-content/uploads/2021/10/Mango-Green-Tea-Takestwoeggs.jpg" alt="Mango green tea" class="w-full h-48 md:h-56 object-cover">
+            <div class="rounded-2xl overflow-hidden mb-4 relative flex-grow bg-gray-100">
+               <img src="https://takestwoeggs.com/wp-content/uploads/2021/10/Mango-Green-Tea-Takestwoeggs.jpg" alt="Mango green tea" class="w-full h-48 md:h-56 object-cover block">
             </div>
             <div class="px-2 pb-2">
               <h4 class="font-bold text-lg text-brand-900">Mango Green Tea</h4>
@@ -371,10 +374,10 @@
           </div>
         </article>
 
-        <article class="card3d perspective-1000 group cursor-pointer h-full">
+        <article class="card3d perspective-1000 group cursor-pointer h-full" data-aos="fade-up" data-aos-delay="300">
           <div class="inner glass-panel p-4 rounded-[2rem] shadow-soft transition-shadow group-hover:shadow-2xl h-full flex flex-col border-orange-100 bg-orange-50/50">
-            <div class="rounded-2xl overflow-hidden mb-4 relative flex-grow">
-               <img src="https://platform.eater.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/8810657/bubble_waffle.jpg?quality=90&strip=all&crop=0%2C0.0099980003999178%2C100%2C99.9800039992&w=2400" alt="Bubble waffle" class="w-full h-48 md:h-56 object-cover">
+            <div class="rounded-2xl overflow-hidden mb-4 relative flex-grow bg-gray-100">
+               <img src="https://platform.eater.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/8810657/bubble_waffle.jpg?quality=90&strip=all&crop=0%2C0.0099980003999178%2C100%2C99.9800039992&w=2400" alt="Bubble waffle" class="w-full h-48 md:h-56 object-cover block">
                <span class="absolute top-3 right-3 bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow"><i class="fa-solid fa-fire text-[10px]"></i> Hot Food</span>
             </div>
             <div class="px-2 pb-2">
@@ -388,17 +391,16 @@
 
     <!-- PERFECT BENTO GRID GALLERY -->
     <section id="gallery" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6">
-      <div class="text-center mb-10 md:mb-16 reveal-up">
+      <div class="text-center mb-10 md:mb-16" data-aos="fade-up">
         <h2 class="font-display font-bold text-3xl md:text-5xl text-brand-900 mb-4">Event Highlights</h2>
         <p class="text-gray-500 text-base md:text-lg">See Chatime in action across different venues and gatherings.</p>
       </div>
       
-      <!-- Bento Mosaic Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 reveal-up">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6">
         
-        <!-- Large Main Feature (Left Side) -->
-        <div class="md:col-span-6 md:row-span-2 rounded-[2rem] overflow-hidden shadow-soft hover:shadow-2xl transition-all duration-500 border border-brand-50 relative group h-[350px] md:h-[600px] cursor-pointer">
-          <img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1742342882931-O9AS1JGDOM1CIJF5MVH4/472421699_3845573935709636_2470367804703128192_n.jpg?format=500w" alt="Event Highlight" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+        <!-- Large Main Feature -->
+        <div data-aos="fade-right" data-aos-delay="0" class="md:col-span-6 md:row-span-2 rounded-[2rem] overflow-hidden shadow-soft hover:shadow-2xl transition-all duration-500 border border-brand-50 relative group h-[350px] md:h-[600px] cursor-pointer bg-gray-100">
+          <img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1742342882931-O9AS1JGDOM1CIJF5MVH4/472421699_3845573935709636_2470367804703128192_n.jpg?format=500w" alt="Event Highlight" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 block">
           <div class="absolute inset-0 bg-gradient-to-t from-brand-950/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6 md:p-8">
              <div class="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 text-white">
                 <div class="w-10 h-10 rounded-full bg-accent text-brand-950 flex items-center justify-center mb-3"><i class="fa-solid fa-heart"></i></div>
@@ -408,33 +410,30 @@
           </div>
         </div>
        
-        <!-- Top Right Item 1 -->
-        <div class="md:col-span-3 rounded-[1.5rem] overflow-hidden shadow-soft hover:shadow-2xl transition-all duration-500 border border-brand-50 relative group h-[250px] md:h-[288px] cursor-pointer">
-          <img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1742342900037-C44FKH0VZCQD7MSA5BMH/66000825_658488684666541_7553173196627771392_n.jpg?format=500w" alt="Event Highlight" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+        <!-- Grid Items -->
+        <div data-aos="fade-left" data-aos-delay="100" class="md:col-span-3 rounded-[1.5rem] overflow-hidden shadow-soft hover:shadow-2xl transition-all duration-500 border border-brand-50 relative group h-[250px] md:h-[288px] cursor-pointer bg-gray-100">
+          <img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1742342900037-C44FKH0VZCQD7MSA5BMH/66000825_658488684666541_7553173196627771392_n.jpg?format=500w" alt="Event Highlight" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 block">
           <div class="absolute inset-0 bg-brand-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
              <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-white backdrop-blur-md transform scale-50 group-hover:scale-100 transition-transform duration-500"><i class="fa-solid fa-camera"></i></div>
           </div>
         </div>
 
-        <!-- Top Right Item 2 -->
-        <div class="md:col-span-3 rounded-[1.5rem] overflow-hidden shadow-soft hover:shadow-2xl transition-all duration-500 border border-brand-50 relative group h-[250px] md:h-[288px] cursor-pointer">
-          <img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1742343626556-4GXNOPVLEWDB521BFS3Z/66449518_410206489577524_5804880688339484672_n.jpg?format=500w" alt="Event Highlight" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+        <div data-aos="fade-left" data-aos-delay="200" class="md:col-span-3 rounded-[1.5rem] overflow-hidden shadow-soft hover:shadow-2xl transition-all duration-500 border border-brand-50 relative group h-[250px] md:h-[288px] cursor-pointer bg-gray-100">
+          <img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1742343626556-4GXNOPVLEWDB521BFS3Z/66449518_410206489577524_5804880688339484672_n.jpg?format=500w" alt="Event Highlight" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 block">
           <div class="absolute inset-0 bg-brand-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
              <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-white backdrop-blur-md transform scale-50 group-hover:scale-100 transition-transform duration-500"><i class="fa-solid fa-camera"></i></div>
           </div>
         </div>
 
-        <!-- Bottom Right Item 1 -->
-        <div class="md:col-span-3 rounded-[1.5rem] overflow-hidden shadow-soft hover:shadow-2xl transition-all duration-500 border border-brand-50 relative group h-[250px] md:h-[288px] cursor-pointer">
-          <img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1742343655035-M3QKT8AC3KYFEG0R44CF/404313568_865854942215855_7283144913655144817_n.jpg?format=500w" alt="Event Highlight" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+        <div data-aos="fade-up" data-aos-delay="100" class="md:col-span-3 rounded-[1.5rem] overflow-hidden shadow-soft hover:shadow-2xl transition-all duration-500 border border-brand-50 relative group h-[250px] md:h-[288px] cursor-pointer bg-gray-100">
+          <img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1742343655035-M3QKT8AC3KYFEG0R44CF/404313568_865854942215855_7283144913655144817_n.jpg?format=500w" alt="Event Highlight" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 block">
           <div class="absolute inset-0 bg-brand-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
              <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-white backdrop-blur-md transform scale-50 group-hover:scale-100 transition-transform duration-500"><i class="fa-solid fa-camera"></i></div>
           </div>
         </div>
 
-        <!-- Bottom Right Item 2 -->
-        <div class="md:col-span-3 rounded-[1.5rem] overflow-hidden shadow-soft hover:shadow-2xl transition-all duration-500 border border-brand-50 relative group h-[250px] md:h-[288px] cursor-pointer">
-          <img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1742345122834-1MZFUMXSAJJOEQGLV3DS/481057275_608884061894798_2299440747380122071_n.jpg?format=500w" alt="Event Highlight" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+        <div data-aos="fade-up" data-aos-delay="200" class="md:col-span-3 rounded-[1.5rem] overflow-hidden shadow-soft hover:shadow-2xl transition-all duration-500 border border-brand-50 relative group h-[250px] md:h-[288px] cursor-pointer bg-gray-100">
+          <img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1742345122834-1MZFUMXSAJJOEQGLV3DS/481057275_608884061894798_2299440747380122071_n.jpg?format=500w" alt="Event Highlight" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 block">
           <div class="absolute inset-0 bg-brand-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
              <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-white backdrop-blur-md transform scale-50 group-hover:scale-100 transition-transform duration-500"><i class="fa-solid fa-camera"></i></div>
           </div>
@@ -447,32 +446,32 @@
     <section class="py-16 md:py-24 bg-white relative overflow-hidden">
       <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-100 to-transparent"></div>
       <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 text-center">
-        <h2 class="font-display font-bold text-3xl md:text-5xl text-brand-900 mb-12 md:mb-16 reveal-up">Simple Booking Process</h2>
+        <h2 data-aos="fade-up" class="font-display font-bold text-3xl md:text-5xl text-brand-900 mb-12 md:mb-16">Simple Booking Process</h2>
         
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 relative">
           <div class="hidden md:block absolute top-10 left-[10%] right-[10%] h-0.5 bg-brand-50 z-0">
-             <div class="h-full bg-brand-600 w-0" id="process-line"></div>
+             <div class="h-full bg-brand-600" data-aos="fade-right" data-aos-duration="1500" style="width: 100%"></div>
           </div>
 
-          <div class="process-step relative z-10 flex flex-col items-center">
+          <div data-aos="fade-up" data-aos-delay="0" class="process-step relative z-10 flex flex-col items-center">
             <div class="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-white shadow-xl border border-brand-100 flex items-center justify-center text-xl md:text-2xl text-brand-800 font-bold mb-4 md:mb-6 rotate-3 hover:rotate-0 transition-transform">1</div>
             <h4 class="font-bold text-lg md:text-xl text-brand-900 mb-2">Inquire</h4>
             <p class="text-gray-500 text-sm max-w-xs">Fill out the form with your date, location, and preferred service style.</p>
           </div>
           
-          <div class="process-step relative z-10 flex flex-col items-center">
+          <div data-aos="fade-up" data-aos-delay="100" class="process-step relative z-10 flex flex-col items-center">
             <div class="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-white shadow-xl border border-brand-100 flex items-center justify-center text-xl md:text-2xl text-brand-800 font-bold mb-4 md:mb-6 -rotate-3 hover:rotate-0 transition-transform">2</div>
             <h4 class="font-bold text-lg md:text-xl text-brand-900 mb-2">Get Quote</h4>
             <p class="text-gray-500 text-sm max-w-xs">We send a tailored package, menu options, and pricing details.</p>
           </div>
           
-          <div class="process-step relative z-10 flex flex-col items-center">
+          <div data-aos="fade-up" data-aos-delay="200" class="process-step relative z-10 flex flex-col items-center">
             <div class="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-white shadow-xl border border-brand-100 flex items-center justify-center text-xl md:text-2xl text-brand-800 font-bold mb-4 md:mb-6 rotate-3 hover:rotate-0 transition-transform">3</div>
             <h4 class="font-bold text-lg md:text-xl text-brand-900 mb-2">Confirm</h4>
             <p class="text-gray-500 text-sm max-w-xs">Sign the agreement and pay the deposit to lock in your date.</p>
           </div>
           
-          <div class="process-step relative z-10 flex flex-col items-center">
+          <div data-aos="fade-up" data-aos-delay="300" class="process-step relative z-10 flex flex-col items-center">
             <div class="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-accent shadow-xl shadow-accent/30 flex items-center justify-center text-xl md:text-2xl text-brand-950 font-bold mb-4 md:mb-6 -rotate-3 hover:rotate-0 transition-transform"><i class="fa-solid fa-check"></i></div>
             <h4 class="font-bold text-lg md:text-xl text-brand-900 mb-2">Enjoy</h4>
             <p class="text-gray-500 text-sm max-w-xs">We arrive early, set up beautifully, and serve your guests with a smile.</p>
@@ -489,7 +488,7 @@
         <div class="grid lg:grid-cols-12 gap-8 md:gap-12 items-start">
           
           <!-- Booking Form -->
-          <div class="lg:col-span-7 glass-panel bg-white/95 p-6 sm:p-8 md:p-12 rounded-[2rem] md:rounded-[2.5rem] shadow-2xl reveal-left">
+          <div data-aos="fade-right" class="lg:col-span-7 glass-panel bg-white/95 p-6 sm:p-8 md:p-12 rounded-[2rem] md:rounded-[2.5rem] shadow-2xl">
             <div class="mb-6 md:mb-8">
               <h2 class="font-display font-bold text-2xl sm:text-3xl md:text-4xl text-brand-900 mb-2">Request a Quote</h2>
               <p class="text-gray-500 text-sm md:text-base">Fill out the details below and we'll get back to you within 24 hours.</p>
@@ -540,7 +539,7 @@
               </div>
 
               <div class="space-y-2">
-                <label class="block text-sm font-semibold text-gray-700">Additional Details (Add-ons, etc.)</label>
+                <label class="block text-sm font-semibold text-gray-700">Additional Details</label>
                 <textarea name="message" rows="4" placeholder="Tell us about the occasion, if you'd like Waffle add-ons, or any special requests..." class="w-full bg-white border border-gray-200 text-gray-800 rounded-xl px-4 py-3 md:py-3.5 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-shadow resize-none"></textarea>
               </div>
 
@@ -551,7 +550,7 @@
           </div>
 
           <!-- Animated Map Sidebar -->
-          <div class="lg:col-span-5 reveal-right">
+          <div data-aos="fade-left" class="lg:col-span-5">
             <div class="bg-brand-950 border border-brand-800/50 p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] shadow-2xl text-white h-full flex flex-col">
               <h3 class="font-display font-bold text-xl md:text-2xl mb-2">Find the Truck</h3>
               <p class="text-brand-100 text-xs md:text-sm mb-6 md:mb-8">Not hosting an event? Catch us on our regular public route this week.</p>
@@ -633,47 +632,62 @@
       requestAnimationFrame(raf);
     }
 
+    // Initialize AOS for perfectly smooth CSS-based scrolling animations
+    function initAOS(){
+        if(typeof AOS !== 'undefined'){
+            AOS.init({
+                duration: 800,
+                once: true,
+                offset: 100,
+                easing: 'ease-out-cubic'
+            });
+        } else {
+            setTimeout(initAOS, 50);
+        }
+    }
+
+    // Setup Header Scroll Listener (Vanilla JS to replace GSAP ScrollTrigger)
+    function setupHeader(){
+        let lastScroll = window.pageYOffset;
+        const header = document.getElementById('header');
+        
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            // Background opacity change
+            if(currentScroll > 50){
+                header.classList.remove('bg-transparent');
+                header.classList.add('shadow-md', 'bg-white/95');
+            } else {
+                header.classList.remove('shadow-md', 'bg-white/95');
+                header.classList.add('bg-transparent');
+            }
+            
+            // Hide on scroll down, show on scroll up
+            if(currentScroll > lastScroll && currentScroll > 150){
+                header.classList.add('-translate-y-full');
+            } else {
+                header.classList.remove('-translate-y-full');
+            }
+            
+            lastScroll = currentScroll;
+        });
+    }
+
     function initGSAP(){
-      if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined' || typeof MotionPathPlugin === 'undefined') {
+      if (typeof gsap === 'undefined' || typeof MotionPathPlugin === 'undefined') {
         return setTimeout(initGSAP, 50);
       }
-      gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
+      gsap.registerPlugin(MotionPathPlugin);
 
-      const tl = gsap.timeline();
-      tl.from('.hero-anim', { y: 40, opacity: 0, stagger: 0.15, duration: 1, ease: 'power3.out', delay: 0.2 });
-
-      ScrollTrigger.create({
-        start: 'top -80',
-        onUpdate: self => {
-          const header = document.getElementById('header');
-          if(self.direction === 1) { header.classList.add('-translate-y-full'); } 
-          else { header.classList.remove('-translate-y-full'); header.classList.add('shadow-md'); }
-          if(self.scroll() < 10) { header.classList.remove('shadow-md'); }
-        }
-      });
-
-      gsap.utils.toArray('.reveal-up').forEach(el => { gsap.fromTo(el, {y: 50, opacity: 0}, { scrollTrigger: { trigger: el, start: 'top 85%' }, y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' }); });
-      gsap.utils.toArray('.reveal-left').forEach(el => { gsap.fromTo(el, {x: -50, opacity: 0}, { scrollTrigger: { trigger: el, start: 'top 85%' }, x: 0, opacity: 1, duration: 0.8, ease: 'power3.out' }); });
-      gsap.utils.toArray('.reveal-right').forEach(el => { gsap.fromTo(el, {x: 50, opacity: 0}, { scrollTrigger: { trigger: el, start: 'top 85%' }, x: 0, opacity: 1, duration: 0.8, ease: 'power3.out' }); });
-
-      gsap.fromTo('.service-card', 
-        { y: 60, opacity: 0 },
-        {
-          scrollTrigger: { trigger: '#services', start: 'top 80%' },
-          y: 0, opacity: 1, stagger: 0.15, duration: 0.8, ease: 'power3.out'
-        }
-      );
-
-      if(document.getElementById('process-line')){
-        gsap.to('#process-line', { scrollTrigger: { trigger: '.process-step', start: 'top 60%', end: 'bottom 40%', scrub: 1 }, width: '100%', ease: 'none' });
-      }
-
+      // Keep only complex animations in GSAP
       const truck = document.querySelector('#truck');
       const route = document.querySelector('#route');
       if (truck && route){
         gsap.to(truck, { motionPath: { path: route, align: route, autoRotate: true, alignOrigin: [0.5, 0.5] }, ease: 'power1.inOut', duration: 15, repeat: -1, repeatDelay: 0.5 });
       }
 
+      // Keep 3D mouse hover tilt
       const tiltEls = document.querySelectorAll('.card3d');
       tiltEls.forEach(el => {
         el.addEventListener('mousemove', (ev) => {
@@ -698,7 +712,6 @@
         
         el.style.width = size + 'px'; el.style.height = size + 'px'; el.style.borderRadius = '50%';
         el.style.position = 'absolute'; el.style.left = `${10 + Math.random() * 80}%`; el.style.bottom = `${-50 - Math.random() * 100}px`;
-        // Darkened pearls to fit the deep purple brand tone slightly better
         el.style.background = `radial-gradient(circle at 30% 30%, rgba(255,255,255,0.4) 0%, rgba(35,7,51,0.9) 30%, rgba(20,5,30,1) 100%)`;
         el.style.boxShadow = '0 10px 15px -3px rgba(0,0,0,0.4), inset -4px -4px 10px rgba(0,0,0,0.6)';
         container.appendChild(el);
@@ -737,7 +750,10 @@
           }
         });
         
-        gsap.fromTo('#cta-request', {scale: 0.9}, {scale: 1, duration: 0.5, ease: 'elastic.out(1, 0.5)'});
+        // Ensure gsap is loaded for button bounce
+        if(typeof gsap !== 'undefined') {
+            gsap.fromTo('#cta-request', {scale: 0.9}, {scale: 1, duration: 0.5, ease: 'elastic.out(1, 0.5)'});
+        }
 
         if(triggerScroll) {
             const bookingSection = document.getElementById('booking');
@@ -766,7 +782,14 @@
       document.querySelectorAll('.mobile-link').forEach(link => link.addEventListener('click', () => { if(menuOpen) toggleMenu(); }));
     }
 
-    window.addEventListener('load', () => { initLenis(); initGSAP(); initBoba(); setupInteractions(); });
+    window.addEventListener('load', () => { 
+        initLenis(); 
+        initAOS(); 
+        setupHeader();
+        initGSAP(); 
+        initBoba(); 
+        setupInteractions(); 
+    });
   })();
   </script>
 </body>
