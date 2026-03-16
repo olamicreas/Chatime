@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chatime — Mobile</title>
+  <title>Chatime — Mobile's Best Boba Joint</title>
 
   <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -48,11 +48,10 @@
     }
   </script>
 
-  <!-- GSAP (Kept only for the floating boba physics & map path) + Lenis -->
+  <!-- GSAP + Lenis + AOS JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/MotionPathPlugin.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@0.2.32/dist/lenis.min.js" defer></script>
-  <!-- AOS JS -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
 
   <style>
@@ -89,42 +88,46 @@
     <div class="absolute bottom-[20%] right-[-5%] w-[30%] h-[50%] rounded-full bg-accent/5 blur-3xl"></div>
   </div>
 
-  <!-- Header -->
-  <header class="fixed w-full top-0 z-50 transition-all duration-300 glass-panel border-b border-white/40" id="header">
-    <div class="max-w-7xl mx-auto px-6 h-16 md:h-20 flex items-center justify-between">
-      <a href="#top" class="flex items-center gap-2 md:gap-3 group">
-        <div class="overflow-hidden rounded-xl w-10 h-10 md:w-12 md:h-12 shadow-sm bg-brand-800 p-1">
+  <!-- Dynamic Header -->
+  <header class="fixed w-full top-0 z-50 transition-all duration-500 bg-transparent border-b border-transparent" id="header">
+    <div class="max-w-7xl mx-auto px-6 h-16 md:h-20 flex items-center justify-between relative z-10">
+      <a href="#top" class="flex items-center gap-3 group">
+        <div class="overflow-hidden rounded-xl w-10 h-10 md:w-12 md:h-12 shadow-sm bg-brand-800 p-1 flex-shrink-0">
           <img src="Chatime_Stacked Logo_Social media_2.jpg" alt="Chatime logo" class="w-full h-full object-cover rounded-lg group-hover:scale-110 transition-transform duration-500" />
         </div>
-        <span class="font-display font-bold text-lg md:text-xl text-brand-800 tracking-tight">Cha<span class="text-accent">time</span><span class="text-brand-500 text-xs md:text-sm ml-1 font-semibold">Mobile</span></span>
+        <div class="flex flex-col justify-center">
+          <span id="brand-title" class="font-display font-bold text-lg md:text-xl text-white tracking-tight leading-none transition-colors duration-300">Chatime</span>
+          <span id="brand-subtitle" class="text-accent text-[10px] md:text-xs font-bold leading-tight mt-0.5 tracking-wide uppercase transition-colors duration-300">Mobile's best boba joint</span>
+        </div>
       </a>
 
       <!-- Desktop Nav -->
-      <nav class="hidden md:flex items-center gap-8 font-medium text-gray-700">
-        <a href="#services" class="hover:text-brand-600 transition-colors">Services</a>
-        <a href="#menu" class="hover:text-brand-600 transition-colors">Menu</a>
-        <a href="#gallery" class="hover:text-brand-600 transition-colors">Gallery</a>
-        <a href="#booking" class="bg-brand-800 text-white px-6 py-2.5 rounded-full hover:bg-brand-900 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 font-semibold text-sm">Request Quote</a>
+      <nav class="hidden md:flex items-center gap-8 font-medium">
+        <a href="#history" class="desktop-nav-link text-white/90 hover:text-white transition-colors duration-300">Our Story</a>
+        <a href="#services" class="desktop-nav-link text-white/90 hover:text-white transition-colors duration-300">Services</a>
+        <a href="#menu" class="desktop-nav-link text-white/90 hover:text-white transition-colors duration-300">Menu</a>
+        <a href="#gallery" class="desktop-nav-link text-white/90 hover:text-white transition-colors duration-300">Gallery</a>
+        <a href="#booking" class="bg-accent text-brand-950 px-6 py-2.5 rounded-full hover:bg-accent-hover hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 font-bold text-sm shadow-md">Request Quote</a>
       </nav>
 
       <!-- Mobile Toggle -->
-      <button id="mobile-menu-btn" class="md:hidden text-brand-800 text-2xl p-2 focus:outline-none" aria-label="Toggle menu">
+      <button id="mobile-menu-btn" class="md:hidden text-white text-2xl p-2 focus:outline-none transition-colors duration-300" aria-label="Toggle menu">
         <i class="fa-solid fa-bars"></i>
       </button>
     </div>
 
     <!-- Mobile Nav Overlay -->
-    <div id="mobile-menu" class="absolute top-16 left-0 w-full glass-panel border-b border-white/50 flex flex-col items-center py-6 gap-6 shadow-xl origin-top transform scale-y-0 opacity-0 transition-all duration-300 md:hidden">
+    <div id="mobile-menu" class="absolute top-[100%] left-0 w-full bg-white/95 backdrop-blur-md border-b border-gray-200 flex flex-col items-center py-6 gap-6 shadow-xl origin-top transform scale-y-0 opacity-0 transition-all duration-300 md:hidden">
+      <a href="#history" class="mobile-link text-lg font-medium text-gray-800 hover:text-brand-800">Our Story</a>
       <a href="#services" class="mobile-link text-lg font-medium text-gray-800 hover:text-brand-800">Services</a>
       <a href="#menu" class="mobile-link text-lg font-medium text-gray-800 hover:text-brand-800">Menu</a>
       <a href="#gallery" class="mobile-link text-lg font-medium text-gray-800 hover:text-brand-800">Gallery</a>
-      <a href="#booking" class="mobile-link bg-brand-800 text-white px-8 py-3 rounded-full font-semibold shadow-md">Request Quote</a>
+      <a href="#booking" class="mobile-link bg-accent text-brand-950 px-8 py-3 rounded-full font-bold shadow-md">Request Quote</a>
     </div>
   </header>
 
   <main>
     <!-- HERO -->
-    <!-- Added significantly larger border-radius for an ultra-fine curve -->
     <section id="top" class="relative min-h-[90vh] md:min-h-[95vh] flex items-center justify-center pt-24 md:pt-20 overflow-hidden rounded-b-[3rem] md:rounded-b-[4rem] lg:rounded-b-[5rem] shadow-soft bg-brand-950">
       <div class="absolute inset-0 z-0">
         <img src="https://images.unsplash.com/photo-1558857563-b371033873b8?q=80&w=2000&auto=format&fit=crop" alt="Boba background" class="w-full h-full object-cover object-center opacity-70" />
@@ -179,20 +182,82 @@
           </div>
         </div>
 
+        <!-- Boba Canvas Area -->
         <div class="hidden lg:block relative w-[400px] h-[500px]" aria-hidden="true">
           <div id="boba-canvas" class="absolute inset-0 z-30 pointer-events-none"></div>
           <div class="absolute bottom-0 right-0 w-full h-[80%] bg-gradient-to-t from-brand-950/80 to-transparent rounded-b-full blur-xl z-20"></div>
         </div>
       </div>
       
-      <a href="#story" class="absolute bottom-2 md:bottom-8 left-1/2 -translate-x-1/2 z-20 text-white/50 hover:text-accent flex flex-col items-center gap-2 transition-colors animate-bounce">
+      <a href="#history" class="absolute bottom-2 md:bottom-8 left-1/2 -translate-x-1/2 z-20 text-white/50 hover:text-accent flex flex-col items-center gap-2 transition-colors animate-bounce">
         <span class="text-[10px] md:text-xs tracking-widest uppercase">Scroll</span>
         <i class="fa-solid fa-arrow-down text-sm md:text-base"></i>
       </a>
     </section>
 
-    <!-- STORY SECTION -->
-    <section id="story" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+    <!-- OUR HISTORY / VIDEO SECTION -->
+    <section id="history" class="py-16 md:py-24 bg-white relative overflow-hidden">
+      <!-- Decorative background blur -->
+      <div class="absolute top-0 right-0 w-[50%] h-[50%] rounded-full bg-brand-50 blur-[100px] -z-10 pointer-events-none"></div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        <div class="grid lg:grid-cols-2 gap-12 md:gap-16 items-center">
+          
+          <!-- History Text -->
+          <div data-aos="fade-right">
+            <span class="text-brand-500 font-bold tracking-widest uppercase text-sm mb-3 block">Our Heritage</span>
+            <h2 class="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-brand-900 mb-6 leading-tight">
+              About Chatime
+            </h2>
+            <div class="space-y-4 text-gray-600 text-base md:text-lg leading-relaxed">
+              <p>
+                The word ‘cha’ means ‘tea’. So technically ‘chatime’ could be loosely translated into ‘teatime’. But today, with over 1000 locations around the globe, Chatime™ means so much more than that.
+              </p>
+              <p>
+                Chatime is a Taiwanese franchise founded in 2005 with over 1000 retail outlets across countries like Taiwan, Malaysia, China, India, Macau, Vietnam, Singapore, Hong Kong, Thailand, Korea, Philippines, Indonesia, Australia, Dubai, Vietnam, Canada, UK, Mexico and the United States.
+              </p>
+              <p>
+                As one of the top beverage companies in the world, Chatime aims to be the most loved beverage by revolutionizing the tea drinking culture in the country. Chatime prepares only hand-made beverages with freshly brewed tea prepared on site. Each drink is individually prepared by trained tearistas worldwide.
+              </p>
+            </div>
+            
+            <!-- Quick Stats -->
+            <div class="mt-8 grid grid-cols-3 gap-4 border-t border-gray-100 pt-6">
+              <div>
+                <h4 class="font-display font-bold text-2xl text-accent">2005</h4>
+                <p class="text-xs text-gray-500 uppercase tracking-wide mt-1">Founded in Taiwan</p>
+              </div>
+              <div>
+                <h4 class="font-display font-bold text-2xl text-accent">Fresh</h4>
+                <p class="text-xs text-gray-500 uppercase tracking-wide mt-1">Brewed Daily</p>
+              </div>
+              <div>
+                <h4 class="font-display font-bold text-2xl text-accent">100%</h4>
+                <p class="text-xs text-gray-500 uppercase tracking-wide mt-1">Hand-Made</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Video Embed -->
+          <div data-aos="fade-left" class="relative w-full">
+            <div class="relative aspect-video rounded-[2rem] overflow-hidden shadow-2xl border border-brand-100 bg-brand-900 z-10 group">
+              <video class="w-full h-full absolute inset-0 object-cover" controls>
+                <source src="https://video.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/76e9fadb-1412-4e20-93e7-2215cd3ac67c/1920:1080" type="video/mp4">
+                <source src="https://video.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/76e9fadb-1412-4e20-93e7-2215cd3ac67c/640:360" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <!-- Decorative accent behind video -->
+            <div class="absolute -bottom-6 -right-6 w-full h-full border-4 border-accent/20 rounded-[2rem] -z-10"></div>
+            <div class="absolute -top-6 -left-6 w-32 h-32 bg-brand-500/20 rounded-full blur-3xl -z-10"></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- THE CRAFT SECTION -->
+    <section id="craft" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
       <div class="grid lg:grid-cols-2 gap-12 md:gap-16 items-center">
         <div class="relative" data-aos="fade-right">
           <div class="rounded-[2rem] overflow-hidden shadow-2xl relative z-10 w-[90%] md:w-[85%] mx-auto lg:mx-0 border border-brand-100 bg-white">
@@ -208,7 +273,7 @@
           <div class="absolute top-0 right-0 w-32 h-32 bg-accent/20 rounded-full blur-2xl"></div>
           <h2 class="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-brand-800 mb-4 md:mb-6 leading-tight">Premium Ingredients.<br>Memorable Moments.</h2>
           <p class="text-gray-600 text-base md:text-lg mb-6 md:mb-8 leading-relaxed">
-            We brew our tea fresh and craft each drink to order. Whether it's our show-stopping food truck or an elegant pop-up cart, we provide everything needed to elevate your gathering.
+            Every step of our process is designed for perfection. Whether it's our show-stopping food truck or an elegant pop-up cart, we provide everything needed to elevate your gathering.
           </p>
           <ul class="space-y-3 md:space-y-5">
             <li class="flex items-center gap-4 text-brand-900 font-medium bg-white/80 p-3 rounded-xl border border-brand-50 shadow-sm text-sm md:text-base">
@@ -603,9 +668,9 @@
       <div class="flex flex-col md:flex-row justify-between items-center gap-6 md:gap-8 mb-8 md:mb-12 text-center md:text-left">
         <div class="flex flex-col md:flex-row items-center gap-4">
           <img src="Chatime_Stacked Logo_Social media_2.jpg" alt="logo small" class="w-16 h-16 rounded-xl object-cover shadow-sm border border-brand-800" />
-          <div>
-            <strong class="font-display text-xl md:text-2xl text-white block">Cha<span class="text-accent">time</span></strong>
-            <span class="text-xs md:text-sm text-brand-100 font-medium tracking-wide uppercase">Mobile’s best boba joint</span>
+          <div class="flex flex-col justify-center">
+            <strong class="font-display text-xl md:text-2xl text-white block leading-none">Chatime</strong>
+            <span class="text-[10px] md:text-xs text-accent font-bold tracking-wide uppercase mt-1">Mobile's best boba joint</span>
           </div>
         </div>
 
@@ -617,7 +682,7 @@
       </div>
 
       <div class="border-t border-brand-900 pt-6 md:pt-8 flex justify-center md:justify-start text-xs md:text-sm text-brand-100/50">
-        <p>© 2026 Chatime Mobile’s Best Boba Joint. All rights reserved.</p>
+        <p>© 2026 Chatime Food Truck & Catering. All rights reserved.</p>
       </div>
     </div>
   </footer>
@@ -632,7 +697,6 @@
       requestAnimationFrame(raf);
     }
 
-    // Initialize AOS for perfectly smooth CSS-based scrolling animations
     function initAOS(){
         if(typeof AOS !== 'undefined'){
             AOS.init({
@@ -646,24 +710,61 @@
         }
     }
 
-    // Setup Header Scroll Listener (Vanilla JS to replace GSAP ScrollTrigger)
+    // Handles the dynamic color changes on scroll
     function setupHeader(){
         let lastScroll = window.pageYOffset;
         const header = document.getElementById('header');
+        const brandTitle = document.getElementById('brand-title');
+        const brandSubtitle = document.getElementById('brand-subtitle');
+        const navLinks = document.querySelectorAll('.desktop-nav-link');
+        const mobileBtn = document.getElementById('mobile-menu-btn');
         
         window.addEventListener('scroll', () => {
             const currentScroll = window.pageYOffset;
             
-            // Background opacity change
             if(currentScroll > 50){
-                header.classList.remove('bg-transparent');
-                header.classList.add('shadow-md', 'bg-white/95');
+                // Background update
+                header.classList.remove('bg-transparent', 'border-transparent');
+                header.classList.add('bg-white/95', 'backdrop-blur-md', 'shadow-md', 'border-gray-200');
+                
+                // Logo text update (Purple and Green on white bg)
+                brandTitle.classList.remove('text-white');
+                brandTitle.classList.add('text-brand-800');
+                brandSubtitle.classList.remove('text-accent');
+                brandSubtitle.classList.add('text-brand-500');
+
+                // Links update (Gray on white bg)
+                navLinks.forEach(link => {
+                    link.classList.remove('text-white/90', 'hover:text-white');
+                    link.classList.add('text-gray-700', 'hover:text-brand-600');
+                });
+
+                // Mobile button update
+                mobileBtn.classList.remove('text-white');
+                mobileBtn.classList.add('text-brand-800');
             } else {
-                header.classList.remove('shadow-md', 'bg-white/95');
-                header.classList.add('bg-transparent');
+                // Return to transparent top state
+                header.classList.remove('bg-white/95', 'backdrop-blur-md', 'shadow-md', 'border-gray-200');
+                header.classList.add('bg-transparent', 'border-transparent');
+                
+                // Logo text update (White and Accent against dark hero)
+                brandTitle.classList.remove('text-brand-800');
+                brandTitle.classList.add('text-white');
+                brandSubtitle.classList.remove('text-brand-500');
+                brandSubtitle.classList.add('text-accent');
+
+                // Links update (White against dark hero)
+                navLinks.forEach(link => {
+                    link.classList.remove('text-gray-700', 'hover:text-brand-600');
+                    link.classList.add('text-white/90', 'hover:text-white');
+                });
+
+                // Mobile button update
+                mobileBtn.classList.remove('text-brand-800');
+                mobileBtn.classList.add('text-white');
             }
             
-            // Hide on scroll down, show on scroll up
+            // Hide header on scroll down, reveal on scroll up
             if(currentScroll > lastScroll && currentScroll > 150){
                 header.classList.add('-translate-y-full');
             } else {
@@ -672,6 +773,11 @@
             
             lastScroll = currentScroll;
         });
+        
+        // Ensure state is correct on page load
+        setTimeout(() => {
+            window.dispatchEvent(new Event('scroll'));
+        }, 50);
     }
 
     function initGSAP(){
@@ -680,14 +786,12 @@
       }
       gsap.registerPlugin(MotionPathPlugin);
 
-      // Keep only complex animations in GSAP
       const truck = document.querySelector('#truck');
       const route = document.querySelector('#route');
       if (truck && route){
         gsap.to(truck, { motionPath: { path: route, align: route, autoRotate: true, alignOrigin: [0.5, 0.5] }, ease: 'power1.inOut', duration: 15, repeat: -1, repeatDelay: 0.5 });
       }
 
-      // Keep 3D mouse hover tilt
       const tiltEls = document.querySelectorAll('.card3d');
       tiltEls.forEach(el => {
         el.addEventListener('mousemove', (ev) => {
@@ -725,7 +829,6 @@
       const select = document.getElementById('service-select');
       const serviceBtns = document.querySelectorAll('.service-btn');
 
-      // Set initial state for all buttons
       serviceBtns.forEach(btn => {
          btn.classList.add('bg-white/10', 'text-white', 'border-white/10');
          btn.querySelector('.icon-marker').classList.add('text-accent');
@@ -736,13 +839,11 @@
         
         serviceBtns.forEach(btn => {
           if(btn.dataset.service === serviceVal){
-             // Active state
              btn.classList.remove('bg-white/10', 'text-white', 'border-white/10');
              btn.classList.add('bg-accent', 'text-brand-950', 'border-accent', 'font-bold', 'shadow-lg', 'shadow-accent/40');
              btn.querySelector('.icon-marker').classList.remove('text-accent');
              btn.querySelector('.icon-marker').classList.add('text-brand-950');
           } else {
-             // Inactive state
              btn.classList.add('bg-white/10', 'text-white', 'border-white/10');
              btn.classList.remove('bg-accent', 'text-brand-950', 'border-accent', 'font-bold', 'shadow-lg', 'shadow-accent/40');
              btn.querySelector('.icon-marker').classList.add('text-accent');
@@ -750,7 +851,6 @@
           }
         });
         
-        // Ensure gsap is loaded for button bounce
         if(typeof gsap !== 'undefined') {
             gsap.fromTo('#cta-request', {scale: 0.9}, {scale: 1, duration: 0.5, ease: 'elastic.out(1, 0.5)'});
         }
