@@ -1,0 +1,775 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chatime — Mobile</title>
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f6f4fa',
+              100: '#ede8f5',
+              500: '#8946b8',
+              600: '#71329f',
+              800: '#481268', /* Chatime Official Deep Purple */
+              900: '#350d4d',
+              950: '#230733'
+            },
+            accent: {
+              DEFAULT: '#8CC63F', /* Chatime Official Leaf Green */
+              hover: '#7ab533'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Poppins', 'sans-serif'],
+          },
+          boxShadow: {
+            'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.07)',
+            'soft': '0 20px 40px -15px rgba(0,0,0,0.05)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- GSAP + plugins + Lenis -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/MotionPathPlugin.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@0.2.32/dist/lenis.min.js" defer></script>
+
+  <style>
+    body { background-color: #FCFAFD; overflow-x: hidden; }
+    
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+    }
+    
+    .glass-dark {
+      background: rgba(20, 10, 15, 0.4);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .card3d { transform-style: preserve-3d; will-change: transform; }
+    .card3d .inner { transform: translateZ(30px); }
+
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #f1f1f1; }
+    ::-webkit-scrollbar-thumb { background: #481268; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #8CC63F; }
+  </style>
+</head>
+<body class="text-gray-800 antialiased selection:bg-brand-500 selection:text-white relative">
+
+  <!-- Background decorative blobs -->
+  <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+    <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-brand-100/60 blur-3xl"></div>
+    <div class="absolute bottom-[20%] right-[-5%] w-[30%] h-[50%] rounded-full bg-accent/5 blur-3xl"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="fixed w-full top-0 z-50 transition-all duration-300 glass-panel border-b border-white/40" id="header">
+    <div class="max-w-7xl mx-auto px-6 h-16 md:h-20 flex items-center justify-between">
+      <a href="#top" class="flex items-center gap-2 md:gap-3 group">
+        <div class="overflow-hidden rounded-xl w-10 h-10 md:w-12 md:h-12 shadow-sm bg-brand-800 p-1">
+          <!-- Logo container simulating brand -->
+          <img src="Chatime_Stacked Logo_Social media_2.jpg" alt="Chatime logo" class="w-full h-full object-cover rounded-lg group-hover:scale-110 transition-transform duration-500" />
+        </div>
+        <span class="font-display font-bold text-lg md:text-xl text-brand-800 tracking-tight">Cha<span class="text-accent">time</span><span class="text-brand-500 text-xs md:text-sm ml-1 font-semibold">Mobile</span></span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-8 font-medium text-gray-700">
+        <a href="#services" class="hover:text-brand-600 transition-colors">Services</a>
+        <a href="#menu" class="hover:text-brand-600 transition-colors">Menu</a>
+        <a href="#gallery" class="hover:text-brand-600 transition-colors">Gallery</a>
+        <a href="#booking" class="bg-brand-800 text-white px-6 py-2.5 rounded-full hover:bg-brand-900 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 font-semibold text-sm">Request Quote</a>
+      </nav>
+
+      <!-- Mobile Toggle -->
+      <button id="mobile-menu-btn" class="md:hidden text-brand-800 text-2xl p-2 focus:outline-none" aria-label="Toggle menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Nav Overlay -->
+    <div id="mobile-menu" class="absolute top-16 left-0 w-full glass-panel border-b border-white/50 flex flex-col items-center py-6 gap-6 shadow-xl origin-top transform scale-y-0 opacity-0 transition-all duration-300 md:hidden">
+      <a href="#services" class="mobile-link text-lg font-medium text-gray-800 hover:text-brand-800">Services</a>
+      <a href="#menu" class="mobile-link text-lg font-medium text-gray-800 hover:text-brand-800">Menu</a>
+      <a href="#gallery" class="mobile-link text-lg font-medium text-gray-800 hover:text-brand-800">Gallery</a>
+      <a href="#booking" class="mobile-link bg-brand-800 text-white px-8 py-3 rounded-full font-semibold shadow-md">Request Quote</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section id="top" class="relative min-h-[90vh] md:min-h-[95vh] flex items-center justify-center pt-24 md:pt-20 overflow-hidden rounded-b-[2rem] md:rounded-b-[3rem] shadow-soft bg-brand-950">
+      <div class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1558857563-b371033873b8?q=80&w=2000&auto=format&fit=crop" alt="Boba background" class="w-full h-full object-cover object-center opacity-70" />
+      </div>
+      <div class="absolute inset-0 z-10 bg-gradient-to-r from-brand-950/95 via-brand-800/80 to-transparent"></div>
+      <div class="absolute inset-0 z-10 bg-gradient-to-t from-brand-950/95 to-transparent mix-blend-multiply"></div>
+
+      <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 w-full flex flex-col lg:flex-row items-center justify-between gap-8 md:gap-12">
+        
+        <div class="max-w-3xl text-white mt-4 md:mt-0 pb-16 md:pb-0">
+          <span class="hero-anim inline-block py-1 px-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-accent text-xs md:text-sm font-bold tracking-wider uppercase mb-4 md:mb-6 shadow-lg">
+            <i class="fa-solid fa-leaf mr-1"></i> Events • Weddings • Corporate
+          </span>
+          
+          <h1 class="hero-anim font-display font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.1] mb-4 md:mb-6 drop-shadow-lg">
+            Bring the <span class="text-accent">Boba</span> Experience to You.
+          </h1>
+          
+          <p class="hero-anim text-base text-gray-200 mb-6 leading-relaxed font-light block md:hidden">
+            Custom bubble tea & waffle packages for any event. Select a service below to start your quote!
+          </p>
+          <p class="hero-anim text-lg md:text-xl text-gray-200 mb-8 md:mb-10 leading-relaxed font-light max-w-2xl hidden md:block">
+            From our fully-equipped food trucks to elegant pop-up carts, chilled coolers, and fresh bubble waffles — we customize the perfect package for your event.
+          </p>
+
+          <!-- Interactive Selector -->
+          <div class="hero-anim glass-dark p-2.5 md:p-3 rounded-2xl inline-flex flex-col gap-2 md:gap-3 w-full sm:w-auto shadow-2xl border border-white/10">
+            <span class="text-xs md:text-sm font-semibold text-gray-300 px-2 uppercase tracking-wide">Select your interest:</span>
+            <div class="flex flex-wrap gap-2">
+              <button data-service="truck" class="service-btn flex-1 sm:flex-none px-3 md:px-4 py-2 rounded-xl transition-all duration-300 font-medium flex items-center justify-center gap-2 text-xs md:text-sm group border">
+                <i class="fa-solid fa-truck icon-marker group-hover:-translate-y-0.5 transition-transform"></i> Truck
+              </button>
+              <button data-service="cart" class="service-btn flex-1 sm:flex-none px-3 md:px-4 py-2 rounded-xl transition-all duration-300 font-medium flex items-center justify-center gap-2 text-xs md:text-sm group border">
+                <i class="fa-solid fa-cart-flatbed icon-marker group-hover:-translate-y-0.5 transition-transform"></i> Cart
+              </button>
+              <button data-service="cooler" class="service-btn flex-1 sm:flex-none px-3 md:px-4 py-2 rounded-xl transition-all duration-300 font-medium flex items-center justify-center gap-2 text-xs md:text-sm group border">
+                <i class="fa-solid fa-box-open icon-marker group-hover:-translate-y-0.5 transition-transform"></i> Cooler
+              </button>
+              <button data-service="catering" class="service-btn flex-1 sm:flex-none px-3 md:px-4 py-2 rounded-xl transition-all duration-300 font-medium flex items-center justify-center gap-2 text-xs md:text-sm group border">
+                <i class="fa-solid fa-glass-water icon-marker group-hover:-translate-y-0.5 transition-transform"></i> Catering
+              </button>
+              <button data-service="waffles" class="service-btn flex-1 sm:flex-none px-3 md:px-4 py-2 rounded-xl transition-all duration-300 font-medium flex items-center justify-center gap-2 text-xs md:text-sm group border">
+                <i class="fa-solid fa-fire icon-marker group-hover:-translate-y-0.5 transition-transform"></i> Waffles
+              </button>
+            </div>
+          </div>
+          
+          <div class="hero-anim mt-6 md:mt-8 flex gap-4">
+             <a id="cta-request" href="#booking" class="bg-accent text-brand-950 px-6 md:px-8 py-3.5 md:py-4 rounded-xl font-bold shadow-lg hover:bg-accent-hover hover:shadow-accent/40 hover:-translate-y-1 transition-all duration-300 w-full sm:w-auto text-center">
+               Get Custom Quote
+             </a>
+          </div>
+        </div>
+
+        <!-- Boba Canvas Area -->
+        <div class="hidden lg:block relative w-[400px] h-[500px]" aria-hidden="true">
+          <div id="boba-canvas" class="absolute inset-0 z-30 pointer-events-none"></div>
+          <div class="absolute bottom-0 right-0 w-full h-[80%] bg-gradient-to-t from-brand-950/80 to-transparent rounded-b-full blur-xl z-20"></div>
+        </div>
+      </div>
+      
+      <a href="#story" class="absolute bottom-2 md:bottom-8 left-1/2 -translate-x-1/2 z-20 text-white/50 hover:text-accent flex flex-col items-center gap-2 transition-colors animate-bounce">
+        <span class="text-[10px] md:text-xs tracking-widest uppercase">Scroll</span>
+        <i class="fa-solid fa-arrow-down text-sm md:text-base"></i>
+      </a>
+    </section>
+
+    <!-- STORY SECTION -->
+    <section id="story" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+      <div class="grid lg:grid-cols-2 gap-12 md:gap-16 items-center">
+        <div class="relative reveal-left">
+          <div class="rounded-[2rem] overflow-hidden shadow-2xl relative z-10 w-[90%] md:w-[85%] mx-auto lg:mx-0 border border-brand-100">
+            <img src="cup.JPG" alt="Bubble tea closeup" class="w-full h-auto object-cover hover:scale-105 transition-transform duration-700">
+          </div>
+          <div class="absolute bottom-[-10%] right-0 w-[60%] md:w-[55%] rounded-[2rem] overflow-hidden shadow-2xl border-4 border-[#FCFAFD] z-20">
+            <img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1742343649328-BWPU3VJG1D2MFBZM1KDO/404309117_865856525549030_6807325054824529706_n.jpg?format=500w" alt="Making bubble tea" class="w-full h-auto object-cover hover:scale-105 transition-transform duration-700">
+          </div>
+          <div class="absolute -top-6 -left-6 w-24 h-24 bg-brand-100 rounded-full mix-blend-multiply blur-xl"></div>
+        </div>
+
+        <div class="reveal-right glass-panel p-6 sm:p-10 md:p-14 rounded-[2rem] md:rounded-[2.5rem] shadow-soft relative overflow-hidden mt-8 lg:mt-0">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-accent/20 rounded-full blur-2xl"></div>
+          <h2 class="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-brand-800 mb-4 md:mb-6 leading-tight">Premium Ingredients.<br>Memorable Moments.</h2>
+          <p class="text-gray-600 text-base md:text-lg mb-6 md:mb-8 leading-relaxed">
+            We brew our tea fresh and craft each drink to order. Whether it's our show-stopping food truck or an elegant pop-up cart, we provide everything needed to elevate your gathering.
+          </p>
+          <ul class="space-y-3 md:space-y-5">
+            <li class="flex items-center gap-4 text-brand-900 font-medium bg-white/80 p-3 rounded-xl border border-brand-50 shadow-sm text-sm md:text-base">
+              <span class="flex items-center justify-center min-w-[36px] md:min-w-[40px] h-9 md:h-10 rounded-full bg-brand-100 text-brand-800"><i class="fa-solid fa-leaf"></i></span>
+              Freshly brewed loose-leaf tea
+            </li>
+            <li class="flex items-center gap-4 text-brand-900 font-medium bg-white/80 p-3 rounded-xl border border-brand-50 shadow-sm text-sm md:text-base">
+              <span class="flex items-center justify-center min-w-[36px] md:min-w-[40px] h-9 md:h-10 rounded-full bg-brand-100 text-brand-800"><i class="fa-solid fa-droplet"></i></span>
+              Premium toppings & custom sweetness
+            </li>
+            <li class="flex items-center gap-4 text-brand-900 font-medium bg-white/80 p-3 rounded-xl border border-brand-50 shadow-sm text-sm md:text-base">
+              <span class="flex items-center justify-center min-w-[36px] md:min-w-[40px] h-9 md:h-10 rounded-full bg-brand-100 text-brand-800"><i class="fa-solid fa-truck-fast"></i></span>
+              Flawless, stress-free event logistics
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="py-16 md:py-24 bg-white relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        <div class="text-center max-w-2xl mx-auto mb-10 md:mb-16 reveal-up">
+          <h2 class="font-display font-bold text-3xl md:text-5xl text-brand-900 mb-3 md:mb-4">Our Services</h2>
+          <p class="text-gray-500 text-base md:text-lg">Select the perfect service style for your guest count, venue type, and culinary desires.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          
+          <a href="#booking" data-service-target="truck" class="service-card group block bg-white rounded-3xl overflow-hidden shadow-soft border border-brand-50 hover:shadow-2xl hover:border-brand-200 transition-all duration-500 relative flex flex-col h-full">
+            <div class="relative h-48 md:h-56 overflow-hidden flex-shrink-0">
+              <div class="absolute inset-0 bg-brand-900/10 group-hover:bg-transparent transition-colors z-10"></div>
+              <img src="foodtruck.jpg" alt="Food truck" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+              <div class="absolute top-4 right-4 z-20 bg-white/95 backdrop-blur text-brand-800 text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">Full Service</div>
+            </div>
+            <div class="p-6 relative flex flex-col flex-grow">
+              <h3 class="font-display font-bold text-xl text-gray-900 mb-2 group-hover:text-brand-600 transition-colors">1. Food Truck</h3>
+              <p class="text-gray-500 text-sm flex-grow">The full Chatime bubble tea truck that comes to your events and serves drinks incredibly fresh. Perfect for outdoor festivals and large gatherings.</p>
+              <div class="mt-4 md:mt-6 flex justify-end text-brand-600 transform group-hover:translate-x-1 transition-transform">
+                <i class="fa-solid fa-arrow-right text-xl text-accent"></i>
+              </div>
+            </div>
+          </a>
+
+          <a href="#booking" data-service-target="cart" class="service-card group block bg-white rounded-3xl overflow-hidden shadow-soft border border-brand-50 hover:shadow-2xl hover:border-brand-200 transition-all duration-500 relative flex flex-col h-full">
+            <div class="relative h-48 md:h-56 overflow-hidden flex-shrink-0">
+              <div class="absolute inset-0 bg-brand-900/10 group-hover:bg-transparent transition-colors z-10"></div>
+              <img src="cart.jpg" alt="Boba cart setup" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+              <div class="absolute top-4 right-4 z-20 bg-white/95 backdrop-blur text-brand-800 text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">Pop-up Style</div>
+            </div>
+            <div class="p-6 relative flex flex-col flex-grow">
+              <h3 class="font-display font-bold text-xl text-gray-900 mb-2 group-hover:text-brand-600 transition-colors">2. Boba Cart</h3>
+              <p class="text-gray-500 text-sm flex-grow">A sleek, portable indoor bubble tea cart designed specifically for weddings, parties, offices, and smaller intimate venues.</p>
+              <div class="mt-4 md:mt-6 flex justify-end text-brand-600 transform group-hover:translate-x-1 transition-transform">
+                <i class="fa-solid fa-arrow-right text-xl text-accent"></i>
+              </div>
+            </div>
+          </a>
+
+          <a href="#booking" data-service-target="cooler" class="service-card group block bg-white rounded-3xl overflow-hidden shadow-soft border border-brand-50 hover:shadow-2xl hover:border-brand-200 transition-all duration-500 relative flex flex-col h-full">
+            <div class="relative h-48 md:h-56 overflow-hidden flex-shrink-0">
+              <div class="absolute inset-0 bg-brand-900/10 group-hover:bg-transparent transition-colors z-10"></div>
+              <img src="https://down-vn.img.susercontent.com/file/vn-11134207-7ras8-m2l0tcuvmvwm15" alt="Cooler drinks" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+              <div class="absolute top-4 right-4 z-20 bg-white/95 backdrop-blur text-brand-800 text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">Drop-off / Self-Serve</div>
+            </div>
+            <div class="p-6 relative flex flex-col flex-grow">
+              <h3 class="font-display font-bold text-xl text-gray-900 mb-2 group-hover:text-brand-600 transition-colors">3. Boba Cooler</h3>
+              <p class="text-gray-500 text-sm flex-grow">Pre-made bubble teas expertly crafted and delivered in coolers so your guests can effortlessly grab drinks themselves.</p>
+              <div class="mt-4 md:mt-6 flex justify-end text-brand-600 transform group-hover:translate-x-1 transition-transform">
+                <i class="fa-solid fa-arrow-right text-xl text-accent"></i>
+              </div>
+            </div>
+          </a>
+
+          <a href="#booking" data-service-target="catering" class="service-card group block bg-brand-800 text-white rounded-3xl overflow-hidden shadow-soft hover:shadow-2xl hover:shadow-brand-800/30 transition-all duration-500 relative md:col-span-2 lg:col-span-2 h-full">
+            <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=1200')] opacity-20 mix-blend-overlay bg-cover bg-center group-hover:scale-110 transition-transform duration-1000"></div>
+            <div class="p-6 md:p-10 relative h-full flex flex-col justify-between z-10">
+              <div>
+                <div class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-accent/20 flex items-center justify-center mb-4 md:mb-6 backdrop-blur-sm border border-accent/50">
+                  <i class="fa-solid fa-glass-cheers text-accent text-xl md:text-2xl"></i>
+                </div>
+                <h3 class="font-display font-bold text-2xl md:text-3xl mb-3 md:mb-4">4. Private & Corporate Catering</h3>
+                <p class="text-brand-100 text-sm md:text-lg leading-relaxed max-w-xl">
+                  Custom packages tailored for weddings, corporate events, birthdays, festivals, and more. Depending on your event size and style, we can utilize the truck, cart, or cooler to deliver a perfect experience.
+                </p>
+              </div>
+              <div class="mt-6 md:mt-8 flex justify-between items-center border-t border-white/20 pt-4 md:pt-6">
+                <span class="text-xs md:text-sm font-semibold uppercase tracking-wider text-accent">Plan Your Event</span>
+                <div class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-accent text-brand-900 flex items-center justify-center group-hover:translate-x-2 transition-transform shadow-md text-sm md:text-base">
+                   <i class="fa-solid fa-arrow-right"></i>
+                </div>
+              </div>
+            </div>
+          </a>
+
+          <a href="#booking" data-service-target="waffles" class="service-card group block bg-orange-50 rounded-3xl overflow-hidden shadow-soft border border-orange-100 hover:shadow-2xl transition-all duration-500 relative md:col-span-2 lg:col-span-1 h-full flex flex-col">
+            <div class="relative h-48 md:h-56 overflow-hidden flex-shrink-0">
+              <div class="absolute inset-0 bg-orange-900/10 group-hover:bg-transparent transition-colors z-10"></div>
+              <img src="https://images.squarespace-cdn.com/content/v1/663084cccfc3de689f4c309d/e6c444ef-aec7-4945-bb3e-3d41138d962d/IMG_1859.jpg?format=2500w" alt="Bubble Waffles" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+              <div class="absolute top-4 right-4 z-20 bg-orange-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm"><i class="fa-solid fa-utensils"></i> Food Add-On</div>
+            </div>
+            <div class="p-6 relative flex flex-col flex-grow">
+              <h3 class="font-display font-bold text-xl text-gray-900 mb-2 group-hover:text-orange-600 transition-colors">5. Bubble Waffles</h3>
+              <p class="text-gray-600 text-sm flex-grow">A delicious food menu add-on service. We serve hot, fresh bubble waffles alongside your drinks to complete the experience.</p>
+              <div class="mt-4 md:mt-6 flex justify-end text-orange-500 transform group-hover:translate-x-1 transition-transform">
+                <i class="fa-solid fa-arrow-right text-xl"></i>
+              </div>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- MENU PREVIEW -->
+    <section id="menu" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-12 gap-4 md:gap-6 reveal-up">
+        <div>
+          <h2 class="font-display font-bold text-3xl md:text-5xl text-brand-900 mb-2 md:mb-4">Crowd Favorites</h2>
+          <p class="text-gray-500 text-base md:text-lg max-w-lg">A sneak peek at our most requested flavors. Full menu customization available for events.</p>
+        </div>
+        <a href="#booking" class="inline-flex items-center gap-2 font-semibold text-brand-800 hover:text-accent transition-colors group">
+          Download Full Menu <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <article class="card3d perspective-1000 group cursor-pointer h-full">
+          <div class="inner glass-panel p-4 rounded-[2rem] shadow-soft transition-shadow group-hover:shadow-2xl h-full flex flex-col">
+            <div class="rounded-2xl overflow-hidden mb-4 relative flex-grow">
+               <img src="https://images.food52.com/bgGP_hq4itaBRLagVH1Vq1novjc=/ff0c177a-14d7-47f7-92a0-ecbf51c0443b--2019-0430_homemade-brown-sugar-boba_3x2_ty-mecham_023.jpeg?w=3840&q=75" alt="Pearl milk tea" class="w-full h-48 md:h-56 object-cover">
+               <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+               <span class="absolute bottom-3 left-3 bg-white/20 backdrop-blur-md text-white text-xs font-bold px-2 py-1 rounded shadow">#1 Best Seller</span>
+            </div>
+            <div class="px-2 pb-2">
+              <h4 class="font-bold text-lg text-brand-900">Classic Brown Sugar</h4>
+              <p class="text-sm text-gray-500 mt-1">Rich black tea, milk, and warm brown sugar tapioca pearls.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="card3d perspective-1000 group cursor-pointer h-full">
+          <div class="inner glass-panel p-4 rounded-[2rem] shadow-soft transition-shadow group-hover:shadow-2xl h-full flex flex-col border-brand-50">
+            <div class="rounded-2xl overflow-hidden mb-4 relative flex-grow">
+               <img src="https://lh7-rt.googleusercontent.com/docsz/AD_4nXcaTBLqpMR9DCMaol2Shz2BUHnhuwfdnbiINVwjkh4OVyvKXI9Hw8cqPMmYid2ybGY07aEtstUmpliXH2m_RFvmz-ma3GCRIlG9CYQDrtqz1ivq3eZDfJN1v0uxox609LGaiHgatg?key=0uRYkzTVb6_zdCbGMkkZ_A" alt="Taro milk tea" class="w-full h-48 md:h-56 object-cover">
+            </div>
+            <div class="px-2 pb-2">
+              <h4 class="font-bold text-lg text-brand-900">Taro Fantasy</h4>
+              <p class="text-sm text-gray-500 mt-1">Creamy, sweet, and nutty taro blended to perfection.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="card3d perspective-1000 group cursor-pointer h-full">
+          <div class="inner glass-panel p-4 rounded-[2rem] shadow-soft transition-shadow group-hover:shadow-2xl h-full flex flex-col border-brand-50">
+            <div class="rounded-2xl overflow-hidden mb-4 relative flex-grow">
+               <img src="https://takestwoeggs.com/wp-content/uploads/2021/10/Mango-Green-Tea-Takestwoeggs.jpg" alt="Mango green tea" class="w-full h-48 md:h-56 object-cover">
+            </div>
+            <div class="px-2 pb-2">
+              <h4 class="font-bold text-lg text-brand-900">Mango Green Tea</h4>
+              <p class="text-sm text-gray-500 mt-1">Refreshing jasmine green tea infused with real mango puree.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="card3d perspective-1000 group cursor-pointer h-full">
+          <div class="inner glass-panel p-4 rounded-[2rem] shadow-soft transition-shadow group-hover:shadow-2xl h-full flex flex-col border-orange-100 bg-orange-50/50">
+            <div class="rounded-2xl overflow-hidden mb-4 relative flex-grow">
+               <img src="https://platform.eater.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/8810657/bubble_waffle.jpg?quality=90&strip=all&crop=0%2C0.0099980003999178%2C100%2C99.9800039992&w=2400" alt="Bubble waffle" class="w-full h-48 md:h-56 object-cover">
+               <span class="absolute top-3 right-3 bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow"><i class="fa-solid fa-fire text-[10px]"></i> Hot Food</span>
+            </div>
+            <div class="px-2 pb-2">
+              <h4 class="font-bold text-lg text-brand-900">Hong Kong Bubble Waffle</h4>
+              <p class="text-sm text-gray-500 mt-1">Crispy outside, fluffy inside. Served hot alongside your drinks.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- PERFECT BENTO GRID GALLERY -->
+    <section id="gallery" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-10 md:mb-16 reveal-up">
+        <h2 class="font-display font-bold text-3xl md:text-5xl text-brand-900 mb-4">Event Highlights</h2>
+        <p class="text-gray-500 text-base md:text-lg">See Chatime in action across different venues and gatherings.</p>
+      </div>
+      
+      <!-- Bento Mosaic Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 reveal-up">
+        
+        <!-- Large Main Feature (Left Side) -->
+        <div class="md:col-span-6 md:row-span-2 rounded-[2rem] overflow-hidden shadow-soft hover:shadow-2xl transition-all duration-500 border border-brand-50 relative group h-[350px] md:h-[600px] cursor-pointer">
+          <img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1742342882931-O9AS1JGDOM1CIJF5MVH4/472421699_3845573935709636_2470367804703128192_n.jpg?format=500w" alt="Event Highlight" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+          <div class="absolute inset-0 bg-gradient-to-t from-brand-950/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6 md:p-8">
+             <div class="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 text-white">
+                <div class="w-10 h-10 rounded-full bg-accent text-brand-950 flex items-center justify-center mb-3"><i class="fa-solid fa-heart"></i></div>
+                <h3 class="font-display font-bold text-2xl">Unforgettable Moments</h3>
+                <p class="text-white/80 text-sm mt-1">Bringing joy to every celebration.</p>
+             </div>
+          </div>
+        </div>
+       
+        <!-- Top Right Item 1 -->
+        <div class="md:col-span-3 rounded-[1.5rem] overflow-hidden shadow-soft hover:shadow-2xl transition-all duration-500 border border-brand-50 relative group h-[250px] md:h-[288px] cursor-pointer">
+          <img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1742342900037-C44FKH0VZCQD7MSA5BMH/66000825_658488684666541_7553173196627771392_n.jpg?format=500w" alt="Event Highlight" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+          <div class="absolute inset-0 bg-brand-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
+             <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-white backdrop-blur-md transform scale-50 group-hover:scale-100 transition-transform duration-500"><i class="fa-solid fa-camera"></i></div>
+          </div>
+        </div>
+
+        <!-- Top Right Item 2 -->
+        <div class="md:col-span-3 rounded-[1.5rem] overflow-hidden shadow-soft hover:shadow-2xl transition-all duration-500 border border-brand-50 relative group h-[250px] md:h-[288px] cursor-pointer">
+          <img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1742343626556-4GXNOPVLEWDB521BFS3Z/66449518_410206489577524_5804880688339484672_n.jpg?format=500w" alt="Event Highlight" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+          <div class="absolute inset-0 bg-brand-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
+             <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-white backdrop-blur-md transform scale-50 group-hover:scale-100 transition-transform duration-500"><i class="fa-solid fa-camera"></i></div>
+          </div>
+        </div>
+
+        <!-- Bottom Right Item 1 -->
+        <div class="md:col-span-3 rounded-[1.5rem] overflow-hidden shadow-soft hover:shadow-2xl transition-all duration-500 border border-brand-50 relative group h-[250px] md:h-[288px] cursor-pointer">
+          <img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1742343655035-M3QKT8AC3KYFEG0R44CF/404313568_865854942215855_7283144913655144817_n.jpg?format=500w" alt="Event Highlight" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+          <div class="absolute inset-0 bg-brand-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
+             <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-white backdrop-blur-md transform scale-50 group-hover:scale-100 transition-transform duration-500"><i class="fa-solid fa-camera"></i></div>
+          </div>
+        </div>
+
+        <!-- Bottom Right Item 2 -->
+        <div class="md:col-span-3 rounded-[1.5rem] overflow-hidden shadow-soft hover:shadow-2xl transition-all duration-500 border border-brand-50 relative group h-[250px] md:h-[288px] cursor-pointer">
+          <img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1742345122834-1MZFUMXSAJJOEQGLV3DS/481057275_608884061894798_2299440747380122071_n.jpg?format=500w" alt="Event Highlight" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+          <div class="absolute inset-0 bg-brand-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
+             <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-white backdrop-blur-md transform scale-50 group-hover:scale-100 transition-transform duration-500"><i class="fa-solid fa-camera"></i></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="py-16 md:py-24 bg-white relative overflow-hidden">
+      <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-100 to-transparent"></div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 text-center">
+        <h2 class="font-display font-bold text-3xl md:text-5xl text-brand-900 mb-12 md:mb-16 reveal-up">Simple Booking Process</h2>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 relative">
+          <div class="hidden md:block absolute top-10 left-[10%] right-[10%] h-0.5 bg-brand-50 z-0">
+             <div class="h-full bg-brand-600 w-0" id="process-line"></div>
+          </div>
+
+          <div class="process-step relative z-10 flex flex-col items-center">
+            <div class="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-white shadow-xl border border-brand-100 flex items-center justify-center text-xl md:text-2xl text-brand-800 font-bold mb-4 md:mb-6 rotate-3 hover:rotate-0 transition-transform">1</div>
+            <h4 class="font-bold text-lg md:text-xl text-brand-900 mb-2">Inquire</h4>
+            <p class="text-gray-500 text-sm max-w-xs">Fill out the form with your date, location, and preferred service style.</p>
+          </div>
+          
+          <div class="process-step relative z-10 flex flex-col items-center">
+            <div class="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-white shadow-xl border border-brand-100 flex items-center justify-center text-xl md:text-2xl text-brand-800 font-bold mb-4 md:mb-6 -rotate-3 hover:rotate-0 transition-transform">2</div>
+            <h4 class="font-bold text-lg md:text-xl text-brand-900 mb-2">Get Quote</h4>
+            <p class="text-gray-500 text-sm max-w-xs">We send a tailored package, menu options, and pricing details.</p>
+          </div>
+          
+          <div class="process-step relative z-10 flex flex-col items-center">
+            <div class="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-white shadow-xl border border-brand-100 flex items-center justify-center text-xl md:text-2xl text-brand-800 font-bold mb-4 md:mb-6 rotate-3 hover:rotate-0 transition-transform">3</div>
+            <h4 class="font-bold text-lg md:text-xl text-brand-900 mb-2">Confirm</h4>
+            <p class="text-gray-500 text-sm max-w-xs">Sign the agreement and pay the deposit to lock in your date.</p>
+          </div>
+          
+          <div class="process-step relative z-10 flex flex-col items-center">
+            <div class="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-accent shadow-xl shadow-accent/30 flex items-center justify-center text-xl md:text-2xl text-brand-950 font-bold mb-4 md:mb-6 -rotate-3 hover:rotate-0 transition-transform"><i class="fa-solid fa-check"></i></div>
+            <h4 class="font-bold text-lg md:text-xl text-brand-900 mb-2">Enjoy</h4>
+            <p class="text-gray-500 text-sm max-w-xs">We arrive early, set up beautifully, and serve your guests with a smile.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BOOKING & MAP -->
+    <section id="booking" class="py-16 md:py-24 bg-brand-900 relative">
+      <div class="absolute inset-0 opacity-20 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+CjxwYXRoIGQ9Ik0yMCAwbDIwIDIwbC0yMCAyMEwwIDIwbDIwLTIweiIgZmlsbD0iI2ZmZiIgZmlsbC1vcGFjaXR5PSIwLjEiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPgo8L3N2Zz4=')]"></div>
+      
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+        <div class="grid lg:grid-cols-12 gap-8 md:gap-12 items-start">
+          
+          <!-- Booking Form -->
+          <div class="lg:col-span-7 glass-panel bg-white/95 p-6 sm:p-8 md:p-12 rounded-[2rem] md:rounded-[2.5rem] shadow-2xl reveal-left">
+            <div class="mb-6 md:mb-8">
+              <h2 class="font-display font-bold text-2xl sm:text-3xl md:text-4xl text-brand-900 mb-2">Request a Quote</h2>
+              <p class="text-gray-500 text-sm md:text-base">Fill out the details below and we'll get back to you within 24 hours.</p>
+            </div>
+
+            <form id="booking-form" class="space-y-4 md:space-y-6" onsubmit="event.preventDefault(); alert('Demo: Booking submitted successfully!');">
+              <div class="space-y-2">
+                <label class="block text-sm font-semibold text-gray-700">Primary Service Interested In</label>
+                <div class="relative">
+                  <select id="service-select" name="service" class="w-full appearance-none bg-brand-50 border border-brand-100 text-brand-900 font-medium rounded-xl px-4 py-3 md:py-3.5 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-shadow">
+                    <option value="truck">1. Food Truck (Full Service)</option>
+                    <option value="cart">2. Boba Cart (Indoor Pop-up)</option>
+                    <option value="cooler">3. Boba Cooler (Self-Serve)</option>
+                    <option value="catering">4. Catering / Private Event</option>
+                    <option value="waffles">5. Bubble Waffles (Food Add-On)</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-brand-600">
+                    <i class="fa-solid fa-chevron-down text-sm"></i>
+                  </div>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+                <div class="space-y-2">
+                  <label class="block text-sm font-semibold text-gray-700">Full Name</label>
+                  <input type="text" name="name" required class="w-full bg-white border border-gray-200 text-gray-800 rounded-xl px-4 py-3 md:py-3.5 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-shadow" placeholder="Jane Doe">
+                </div>
+                <div class="space-y-2">
+                  <label class="block text-sm font-semibold text-gray-700">Email Address</label>
+                  <input type="email" name="email" required class="w-full bg-white border border-gray-200 text-gray-800 rounded-xl px-4 py-3 md:py-3.5 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-shadow" placeholder="jane@example.com">
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+                <div class="space-y-2">
+                  <label class="block text-sm font-semibold text-gray-700">Event Date</label>
+                  <input type="date" name="date" required class="w-full bg-white border border-gray-200 text-gray-800 rounded-xl px-4 py-3 md:py-3.5 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-shadow">
+                </div>
+                <div class="space-y-2">
+                  <label class="block text-sm font-semibold text-gray-700">Guest Count</label>
+                  <input type="number" name="guests" min="10" placeholder="e.g. 150" class="w-full bg-white border border-gray-200 text-gray-800 rounded-xl px-4 py-3 md:py-3.5 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-shadow">
+                </div>
+              </div>
+
+              <div class="space-y-2">
+                <label class="block text-sm font-semibold text-gray-700">Location / Venue</label>
+                <input type="text" name="location" placeholder="Address or venue name" class="w-full bg-white border border-gray-200 text-gray-800 rounded-xl px-4 py-3 md:py-3.5 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-shadow">
+              </div>
+
+              <div class="space-y-2">
+                <label class="block text-sm font-semibold text-gray-700">Additional Details (Add-ons, etc.)</label>
+                <textarea name="message" rows="4" placeholder="Tell us about the occasion, if you'd like Waffle add-ons, or any special requests..." class="w-full bg-white border border-gray-200 text-gray-800 rounded-xl px-4 py-3 md:py-3.5 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-shadow resize-none"></textarea>
+              </div>
+
+              <button type="submit" class="w-full bg-brand-800 text-white font-bold text-base md:text-lg py-3.5 md:py-4 rounded-xl hover:bg-brand-900 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex justify-center items-center gap-2">
+                Send Request <i class="fa-solid fa-paper-plane"></i>
+              </button>
+            </form>
+          </div>
+
+          <!-- Animated Map Sidebar -->
+          <div class="lg:col-span-5 reveal-right">
+            <div class="bg-brand-950 border border-brand-800/50 p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] shadow-2xl text-white h-full flex flex-col">
+              <h3 class="font-display font-bold text-xl md:text-2xl mb-2">Find the Truck</h3>
+              <p class="text-brand-100 text-xs md:text-sm mb-6 md:mb-8">Not hosting an event? Catch us on our regular public route this week.</p>
+              
+              <div class="flex-grow flex items-center justify-center bg-brand-900 rounded-2xl p-4 overflow-hidden relative min-h-[200px] md:min-h-0 border border-brand-800">
+                <svg class="w-full h-auto drop-shadow-xl" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+                  <path id="route" d="M80,400 C150,250 300,450 450,280 C600,110 650,350 750,150" fill="none" stroke="rgba(140, 198, 63, 0.2)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"></path>
+                  <path d="M80,400 C150,250 300,450 450,280 C600,110 650,350 750,150" fill="none" stroke="rgba(140, 198, 63, 0.6)" stroke-width="2" stroke-dasharray="8 8" stroke-linecap="round"></path>
+
+                  <g id="stops" fill="var(--brand-800)" stroke="#8CC63F" stroke-width="4">
+                    <circle cx="80" cy="400" r="10" class="shadow-lg"></circle>
+                    <circle cx="450" cy="280" r="10"></circle>
+                    <circle cx="750" cy="150" r="10"></circle>
+                  </g>
+
+                  <g id="truck" transform="translate(0,0) scale(1.2)">
+                    <rect x="-20" y="-14" width="40" height="24" rx="4" fill="#8CC63F" />
+                    <rect x="-10" y="-18" width="12" height="10" rx="2" fill="#fff" />
+                    <circle cx="-10" cy="14" r="5" fill="#230733"/>
+                    <circle cx="10" cy="14" r="5" fill="#230733"/>
+                    <path d="M -5 0 L 5 0" stroke="white" stroke-width="2"/>
+                  </g>
+
+                  <text x="95" y="415" font-size="16" fill="#fff" font-family="Inter" font-weight="600" class="drop-shadow-md">Mon - Univ. Campus</text>
+                  <text x="465" y="295" font-size="16" fill="#fff" font-family="Inter" font-weight="600" class="drop-shadow-md">Wed - Tech Park</text>
+                  <text x="620" y="140" font-size="16" fill="#fff" font-family="Inter" font-weight="600" class="drop-shadow-md">Sat - Night Market</text>
+                </svg>
+              </div>
+
+              <div class="mt-6 md:mt-8 pt-4 md:pt-6 border-t border-brand-800/50 space-y-4">
+                <div class="flex items-center gap-4">
+                  <div class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-accent flex items-center justify-center text-brand-950 text-lg md:text-xl"><i class="fa-solid fa-phone"></i></div>
+                  <div>
+                    <div class="text-[10px] md:text-xs text-brand-100 uppercase tracking-wider">Call Us</div>
+                    <a href="tel:+18001234567" class="font-bold text-base md:text-lg hover:text-accent transition-colors text-white">+1 (800) 123-4567</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-brand-950 border-t border-brand-900 pt-12 md:pt-16 pb-8 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6 md:gap-8 mb-8 md:mb-12 text-center md:text-left">
+        <div class="flex flex-col md:flex-row items-center gap-4">
+          <img src="Chatime_Stacked Logo_Social media_2.jpg" alt="logo small" class="w-16 h-16 rounded-xl object-cover shadow-sm border border-brand-800" />
+          <div>
+            <strong class="font-display text-xl md:text-2xl text-white block">Cha<span class="text-accent">time</span></strong>
+            <span class="text-xs md:text-sm text-brand-100 font-medium tracking-wide uppercase">Catering & Events</span>
+          </div>
+        </div>
+
+        <div class="flex gap-4">
+          <a href="#" aria-label="Instagram" class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-brand-900 flex items-center justify-center text-brand-100 hover:bg-accent hover:text-brand-950 transition-all duration-300 text-lg md:text-xl shadow-sm border border-brand-800"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" aria-label="TikTok" class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-brand-900 flex items-center justify-center text-brand-100 hover:bg-accent hover:text-brand-950 transition-all duration-300 text-lg md:text-xl shadow-sm border border-brand-800"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="#" aria-label="Facebook" class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-brand-900 flex items-center justify-center text-brand-100 hover:bg-accent hover:text-brand-950 transition-all duration-300 text-lg md:text-xl shadow-sm border border-brand-800"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+      </div>
+
+      <div class="border-t border-brand-900 pt-6 md:pt-8 flex justify-center md:justify-start text-xs md:text-sm text-brand-100/50">
+        <p>© 2026 Chatime Food Truck & Catering. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+  (function(){
+    function initLenis(){
+      if (typeof Lenis === 'undefined') return;
+      const lenis = new Lenis({ duration: 1.2, easing: t=>t, smoothWheel: true });
+      function raf(time){ lenis.raf(time); requestAnimationFrame(raf); }
+      requestAnimationFrame(raf);
+    }
+
+    function initGSAP(){
+      if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined' || typeof MotionPathPlugin === 'undefined') {
+        return setTimeout(initGSAP, 50);
+      }
+      gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
+
+      const tl = gsap.timeline();
+      tl.from('.hero-anim', { y: 40, opacity: 0, stagger: 0.15, duration: 1, ease: 'power3.out', delay: 0.2 });
+
+      ScrollTrigger.create({
+        start: 'top -80',
+        onUpdate: self => {
+          const header = document.getElementById('header');
+          if(self.direction === 1) { header.classList.add('-translate-y-full'); } 
+          else { header.classList.remove('-translate-y-full'); header.classList.add('shadow-md'); }
+          if(self.scroll() < 10) { header.classList.remove('shadow-md'); }
+        }
+      });
+
+      gsap.utils.toArray('.reveal-up').forEach(el => { gsap.fromTo(el, {y: 50, opacity: 0}, { scrollTrigger: { trigger: el, start: 'top 85%' }, y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' }); });
+      gsap.utils.toArray('.reveal-left').forEach(el => { gsap.fromTo(el, {x: -50, opacity: 0}, { scrollTrigger: { trigger: el, start: 'top 85%' }, x: 0, opacity: 1, duration: 0.8, ease: 'power3.out' }); });
+      gsap.utils.toArray('.reveal-right').forEach(el => { gsap.fromTo(el, {x: 50, opacity: 0}, { scrollTrigger: { trigger: el, start: 'top 85%' }, x: 0, opacity: 1, duration: 0.8, ease: 'power3.out' }); });
+
+      gsap.fromTo('.service-card', 
+        { y: 60, opacity: 0 },
+        {
+          scrollTrigger: { trigger: '#services', start: 'top 80%' },
+          y: 0, opacity: 1, stagger: 0.15, duration: 0.8, ease: 'power3.out'
+        }
+      );
+
+      if(document.getElementById('process-line')){
+        gsap.to('#process-line', { scrollTrigger: { trigger: '.process-step', start: 'top 60%', end: 'bottom 40%', scrub: 1 }, width: '100%', ease: 'none' });
+      }
+
+      const truck = document.querySelector('#truck');
+      const route = document.querySelector('#route');
+      if (truck && route){
+        gsap.to(truck, { motionPath: { path: route, align: route, autoRotate: true, alignOrigin: [0.5, 0.5] }, ease: 'power1.inOut', duration: 15, repeat: -1, repeatDelay: 0.5 });
+      }
+
+      const tiltEls = document.querySelectorAll('.card3d');
+      tiltEls.forEach(el => {
+        el.addEventListener('mousemove', (ev) => {
+          const r = el.getBoundingClientRect();
+          const ry = ((ev.clientX - r.left) / r.width - 0.5) * 15;
+          const rx = ((ev.clientY - r.top) / r.height - 0.5) * -15;
+          gsap.to(el, { rotationY: ry, rotationX: rx, scale: 1.05, transformPerspective: 1000, duration: 0.4, ease: 'power2.out' });
+        });
+        el.addEventListener('mouseleave', () => { gsap.to(el, { rotationX: 0, rotationY: 0, scale: 1, duration: 0.6, ease: 'power3.out' }); });
+      });
+    }
+
+    function initBoba(){
+      if (typeof gsap === 'undefined') return setTimeout(initBoba, 50);
+      const container = document.getElementById('boba-canvas');
+      if (!container) return;
+
+      container.innerHTML = '';
+      for (let i=0; i<18; i++){
+        const el = document.createElement('div');
+        const size = 20 + Math.random() * 25;
+        
+        el.style.width = size + 'px'; el.style.height = size + 'px'; el.style.borderRadius = '50%';
+        el.style.position = 'absolute'; el.style.left = `${10 + Math.random() * 80}%`; el.style.bottom = `${-50 - Math.random() * 100}px`;
+        // Darkened pearls to fit the deep purple brand tone slightly better
+        el.style.background = `radial-gradient(circle at 30% 30%, rgba(255,255,255,0.4) 0%, rgba(35,7,51,0.9) 30%, rgba(20,5,30,1) 100%)`;
+        el.style.boxShadow = '0 10px 15px -3px rgba(0,0,0,0.4), inset -4px -4px 10px rgba(0,0,0,0.6)';
+        container.appendChild(el);
+
+        gsap.to(el, { y: -550 - Math.random() * 200, x: (Math.random() - 0.5) * 150, rotation: (Math.random() - 0.5) * 200, ease: 'power1.inOut', duration: 8 + Math.random() * 6, repeat: -1, delay: Math.random() * 4 });
+        gsap.to(el, { scale: 0.9 + Math.random() * 0.2, yoyo: true, repeat: -1, duration: 2 + Math.random() * 2, ease: 'sine.inOut' });
+      }
+    }
+
+    function setupInteractions(){
+      const select = document.getElementById('service-select');
+      const serviceBtns = document.querySelectorAll('.service-btn');
+
+      // Set initial state for all buttons
+      serviceBtns.forEach(btn => {
+         btn.classList.add('bg-white/10', 'text-white', 'border-white/10');
+         btn.querySelector('.icon-marker').classList.add('text-accent');
+      });
+
+      function updateSelection(serviceVal, triggerScroll = false) {
+        if(select) select.value = serviceVal;
+        
+        serviceBtns.forEach(btn => {
+          if(btn.dataset.service === serviceVal){
+             // Active state
+             btn.classList.remove('bg-white/10', 'text-white', 'border-white/10');
+             btn.classList.add('bg-accent', 'text-brand-950', 'border-accent', 'font-bold', 'shadow-lg', 'shadow-accent/40');
+             btn.querySelector('.icon-marker').classList.remove('text-accent');
+             btn.querySelector('.icon-marker').classList.add('text-brand-950');
+          } else {
+             // Inactive state
+             btn.classList.add('bg-white/10', 'text-white', 'border-white/10');
+             btn.classList.remove('bg-accent', 'text-brand-950', 'border-accent', 'font-bold', 'shadow-lg', 'shadow-accent/40');
+             btn.querySelector('.icon-marker').classList.add('text-accent');
+             btn.querySelector('.icon-marker').classList.remove('text-brand-950');
+          }
+        });
+        
+        gsap.fromTo('#cta-request', {scale: 0.9}, {scale: 1, duration: 0.5, ease: 'elastic.out(1, 0.5)'});
+
+        if(triggerScroll) {
+            const bookingSection = document.getElementById('booking');
+            if(bookingSection) {
+                const yOffset = -60; 
+                const y = bookingSection.getBoundingClientRect().top + window.scrollY + yOffset;
+                window.scrollTo({top: y, behavior: 'smooth'});
+            }
+        }
+      }
+
+      serviceBtns.forEach(btn => btn.addEventListener('click', () => updateSelection(btn.dataset.service, true)));
+      document.querySelectorAll('[data-service-target]').forEach(card => card.addEventListener('click', () => updateSelection(card.getAttribute('data-service-target'), false)));
+
+      const mobileBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      let menuOpen = false;
+
+      function toggleMenu() {
+        menuOpen = !menuOpen;
+        if(menuOpen) { mobileMenu.classList.remove('scale-y-0', 'opacity-0'); mobileMenu.classList.add('scale-y-100', 'opacity-100'); mobileBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>'; } 
+        else { mobileMenu.classList.remove('scale-y-100', 'opacity-100'); mobileMenu.classList.add('scale-y-0', 'opacity-0'); mobileBtn.innerHTML = '<i class="fa-solid fa-bars"></i>'; }
+      }
+
+      mobileBtn.addEventListener('click', toggleMenu);
+      document.querySelectorAll('.mobile-link').forEach(link => link.addEventListener('click', () => { if(menuOpen) toggleMenu(); }));
+    }
+
+    window.addEventListener('load', () => { initLenis(); initGSAP(); initBoba(); setupInteractions(); });
+  })();
+  </script>
+</body>
+</html>
+
+
