@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chatime — Mobile's Best Boba Joint</title>
+  <title>Mobile's Best Boba Joint</title>
 
   <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -71,8 +71,72 @@
       border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    .card3d { transform-style: preserve-3d; will-change: transform; }
-    .card3d .inner { transform: translateZ(30px); }
+    /* Infinite Marquee Styles for Floating Drinks Menu */
+    .ticker-wrap {
+      width: 100%;
+      overflow: hidden;
+      background-color: #481268;
+      position: relative;
+      padding: 3rem 0 5rem 0;
+    }
+    .ticker-wrap::before, .ticker-wrap::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      width: 100px;
+      height: 100%;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .ticker-wrap::before {
+      left: 0;
+      background: linear-gradient(to right, #481268, transparent);
+    }
+    .ticker-wrap::after {
+      right: 0;
+      background: linear-gradient(to left, #481268, transparent);
+    }
+    .ticker-track {
+      display: flex;
+      width: max-content;
+      animation: scrollMarquee 40s linear infinite; /* Slowed down for more items */
+    }
+    .ticker-track:hover {
+      animation-play-state: paused;
+    }
+    .ticker-half {
+      display: flex;
+      gap: 3rem;
+      padding-right: 3rem;
+      align-items: center;
+    }
+    @keyframes scrollMarquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    
+    /* Transparent PNG Floating Drink Item */
+    .drink-item {
+      height: 240px; /* Mobile height */
+      width: auto;
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: pointer;
+    }
+    @media (min-width: 768px) {
+      .drink-item {
+        height: 380px; /* Desktop height */
+      }
+    }
+    .drink-item:hover {
+      transform: translateY(-15px) scale(1.08) rotate(2deg);
+    }
+    .drink-item img {
+      height: 100%;
+      width: auto;
+      object-fit: contain;
+      /* Add realistic shadow to the transparent PNGs */
+      filter: drop-shadow(0 20px 25px rgba(0,0,0,0.4));
+    }
 
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: #f1f1f1; }
@@ -88,16 +152,16 @@
     <div class="absolute bottom-[20%] right-[-5%] w-[30%] h-[50%] rounded-full bg-accent/5 blur-3xl"></div>
   </div>
 
-  <!-- Dynamic Header -->
+  <!-- Header -->
   <header class="fixed w-full top-0 z-50 transition-all duration-500 bg-transparent border-b border-transparent" id="header">
     <div class="max-w-7xl mx-auto px-6 h-16 md:h-20 flex items-center justify-between relative z-10">
       <a href="#top" class="flex items-center gap-3 group">
-        <div class="overflow-hidden rounded-xl w-10 h-10 md:w-12 md:h-12 shadow-sm bg-brand-800 p-1 flex-shrink-0">
-          <img src="Chatime_Stacked Logo_Social media_2.jpg" alt="Chatime logo" class="w-full h-full object-cover rounded-lg group-hover:scale-110 transition-transform duration-500" />
+        <div class="overflow-hidden rounded-xl w-10 h-10 md:w-12 md:h-12 shadow-sm bg-brand-800 p-1 flex-shrink-0 border border-white/20">
+          <img src="Chatime_Stacked Logo_Social media_2.jpg" alt="Logo" class="w-full h-full object-cover rounded-lg group-hover:scale-110 transition-transform duration-500" />
         </div>
         <div class="flex flex-col justify-center">
-          <span id="brand-title" class="font-display font-bold text-lg md:text-xl text-white tracking-tight leading-none transition-colors duration-300">Chatime</span>
-          <span id="brand-subtitle" class="text-accent text-[10px] md:text-xs font-bold leading-tight mt-0.5 tracking-wide uppercase transition-colors duration-300">Mobile's best boba joint</span>
+          <span id="brand-title" class="font-display font-bold text-lg md:text-xl text-white tracking-tight leading-none transition-colors duration-300">Mobile's Best</span>
+          <span id="brand-subtitle" class="text-white text-[10px] md:text-xs font-bold leading-tight mt-0.5 tracking-wide uppercase transition-colors duration-300">Boba Joint</span>
         </div>
       </a>
 
@@ -138,20 +202,23 @@
       <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 w-full flex flex-col lg:flex-row items-center justify-between gap-8 md:gap-12">
         
         <div class="max-w-3xl text-white mt-4 md:mt-0 pb-16 md:pb-0">
-          <span data-aos="fade-up" class="inline-block py-1 px-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-accent text-xs md:text-sm font-bold tracking-wider uppercase mb-4 md:mb-6 shadow-lg">
+          <span data-aos="fade-up" class="inline-block py-1 px-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-accent text-xs md:text-sm font-bold tracking-wider uppercase mb-4 shadow-lg">
             <i class="fa-solid fa-leaf mr-1"></i> Events • Weddings • Corporate
           </span>
           
-          <h1 data-aos="fade-up" data-aos-delay="100" class="font-display font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.1] mb-4 md:mb-6 drop-shadow-lg">
+          <h1 data-aos="fade-up" data-aos-delay="100" class="font-display font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.1] mb-4 drop-shadow-lg">
             Bring the <span class="text-accent">Boba</span> Experience to You.
           </h1>
           
-          <p data-aos="fade-up" data-aos-delay="200" class="text-base text-gray-200 mb-6 leading-relaxed font-light block md:hidden">
-            Custom bubble tea & waffle packages for any event. Select a service below to start your quote!
+          <p data-aos="fade-up" data-aos-delay="200" class="text-base md:text-lg text-gray-200 mb-4 leading-relaxed font-light max-w-2xl">
+            Custom bubble tea & Hongkong waffle packages for any event. Select a service below to start your quote!
           </p>
-          <p data-aos="fade-up" data-aos-delay="200" class="text-lg md:text-xl text-gray-200 mb-8 md:mb-10 leading-relaxed font-light max-w-2xl hidden md:block">
-            From our fully-equipped food trucks to elegant pop-up carts, chilled coolers, and fresh bubble waffles — we customize the perfect package for your event.
-          </p>
+
+          <!-- Location Indicator -->
+          <div data-aos="fade-up" data-aos-delay="250" class="flex items-center gap-2 text-white/90 font-medium mb-6 md:mb-8 bg-brand-900/40 w-fit px-4 py-2 rounded-full border border-white/10 shadow-inner">
+            <i class="fa-solid fa-location-dot text-accent"></i>
+            <span class="text-sm md:text-base">Serving events throughout Mobile, Alabama</span>
+          </div>
 
           <!-- Interactive Selector -->
           <div data-aos="fade-up" data-aos-delay="300" class="glass-dark p-2.5 md:p-3 rounded-2xl inline-flex flex-col gap-2 md:gap-3 w-full sm:w-auto shadow-2xl border border-white/10">
@@ -161,7 +228,7 @@
                 <i class="fa-solid fa-truck icon-marker group-hover:-translate-y-0.5 transition-transform"></i> Truck
               </button>
               <button data-service="cart" class="service-btn flex-1 sm:flex-none px-3 md:px-4 py-2 rounded-xl transition-all duration-300 font-medium flex items-center justify-center gap-2 text-xs md:text-sm group border">
-                <i class="fa-solid fa-cart-flatbed icon-marker group-hover:-translate-y-0.5 transition-transform"></i> Cart
+                <i class="fa-solid fa-cart-flatbed icon-marker group-hover:-translate-y-0.5 transition-transform"></i> Boba Cart
               </button>
               <button data-service="cooler" class="service-btn flex-1 sm:flex-none px-3 md:px-4 py-2 rounded-xl transition-all duration-300 font-medium flex items-center justify-center gap-2 text-xs md:text-sm group border">
                 <i class="fa-solid fa-box-open icon-marker group-hover:-translate-y-0.5 transition-transform"></i> Cooler
@@ -197,7 +264,6 @@
 
     <!-- OUR HISTORY / VIDEO SECTION -->
     <section id="history" class="py-16 md:py-24 bg-white relative overflow-hidden">
-      <!-- Decorative background blur -->
       <div class="absolute top-0 right-0 w-[50%] h-[50%] rounded-full bg-brand-50 blur-[100px] -z-10 pointer-events-none"></div>
 
       <div class="max-w-7xl mx-auto px-4 sm:px-6">
@@ -214,14 +280,13 @@
                 The word ‘cha’ means ‘tea’. So technically ‘chatime’ could be loosely translated into ‘teatime’. But today, with over 1000 locations around the globe, Chatime™ means so much more than that.
               </p>
               <p>
-                Chatime is a Taiwanese franchise founded in 2005 with over 1000 retail outlets across countries like Taiwan, Malaysia, China, India, Macau, Vietnam, Singapore, Hong Kong, Thailand, Korea, Philippines, Indonesia, Australia, Dubai, Vietnam, Canada, UK, Mexico and the United States.
+                Chatime is a Taiwanese franchise founded in 2005 with over 1000 retail outlets across countries like Taiwan, Malaysia, China, India, Macau, Vietnam, Singapore, Hong Kong, Thailand, Korea, Philippines, Indonesia, Australia, Dubai, Canada, UK, Mexico and the United States.
               </p>
               <p>
                 As one of the top beverage companies in the world, Chatime aims to be the most loved beverage by revolutionizing the tea drinking culture in the country. Chatime prepares only hand-made beverages with freshly brewed tea prepared on site. Each drink is individually prepared by trained tearistas worldwide.
               </p>
             </div>
             
-            <!-- Quick Stats -->
             <div class="mt-8 grid grid-cols-3 gap-4 border-t border-gray-100 pt-6">
               <div>
                 <h4 class="font-display font-bold text-2xl text-accent">2005</h4>
@@ -247,7 +312,6 @@
                 Your browser does not support the video tag.
               </video>
             </div>
-            <!-- Decorative accent behind video -->
             <div class="absolute -bottom-6 -right-6 w-full h-full border-4 border-accent/20 rounded-[2rem] -z-10"></div>
             <div class="absolute -top-6 -left-6 w-32 h-32 bg-brand-500/20 rounded-full blur-3xl -z-10"></div>
           </div>
@@ -336,7 +400,7 @@
           <a href="#booking" data-service-target="cooler" data-aos="fade-up" data-aos-delay="200" class="service-card group block bg-white rounded-3xl overflow-hidden shadow-soft border border-brand-50 hover:shadow-2xl hover:border-brand-200 transition-all duration-500 relative flex flex-col h-full">
             <div class="relative h-48 md:h-56 overflow-hidden flex-shrink-0 bg-gray-100">
               <div class="absolute inset-0 bg-brand-900/10 group-hover:bg-transparent transition-colors z-10"></div>
-              <img src="https://down-vn.img.susercontent.com/file/vn-11134207-7ras8-m2l0tcuvmvwm15" alt="Cooler drinks" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 block">
+              <img src="cooler.jpeg" alt="Cooler drinks" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 block">
               <div class="absolute top-4 right-4 z-20 bg-white/95 backdrop-blur text-brand-800 text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">Drop-off / Self-Serve</div>
             </div>
             <div class="p-6 relative flex flex-col flex-grow">
@@ -376,8 +440,8 @@
               <div class="absolute top-4 right-4 z-20 bg-orange-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm"><i class="fa-solid fa-utensils"></i> Food Add-On</div>
             </div>
             <div class="p-6 relative flex flex-col flex-grow">
-              <h3 class="font-display font-bold text-xl text-gray-900 mb-2 group-hover:text-orange-600 transition-colors">5. Bubble Waffles</h3>
-              <p class="text-gray-600 text-sm flex-grow">A delicious food menu add-on service. We serve hot, fresh bubble waffles alongside your drinks to complete the experience.</p>
+              <h3 class="font-display font-bold text-xl text-gray-900 mb-2 group-hover:text-orange-600 transition-colors">5. Hongkong Waffles</h3>
+              <p class="text-gray-600 text-sm flex-grow">A delicious food menu add-on service. We serve hot, fresh hongkong waffles alongside your drinks to complete the experience.</p>
               <div class="mt-4 md:mt-6 flex justify-end text-orange-500 transform group-hover:translate-x-1 transition-transform">
                 <i class="fa-solid fa-arrow-right text-xl"></i>
               </div>
@@ -388,69 +452,88 @@
       </div>
     </section>
 
-    <!-- MENU PREVIEW -->
-    <section id="menu" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6">
-      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-12 gap-4 md:gap-6" data-aos="fade-up">
-        <div>
-          <h2 class="font-display font-bold text-3xl md:text-5xl text-brand-900 mb-2 md:mb-4">Crowd Favorites</h2>
-          <p class="text-gray-500 text-base md:text-lg max-w-lg">A sneak peek at our most requested flavors. Full menu customization available for events.</p>
-        </div>
-        <a href="#booking" class="inline-flex items-center gap-2 font-semibold text-brand-800 hover:text-accent transition-colors group">
-          Download Full Menu <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
-        </a>
+    <!-- NEW INFINITE MENU CAROUSEL -->
+    <section id="menu" class="ticker-wrap relative overflow-hidden bg-brand-800 border-t border-b border-brand-900">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 mb-8 md:mb-12 text-center" data-aos="fade-up">
+        <h2 class="font-display font-bold text-3xl md:text-5xl text-white mb-2 md:mb-4">Crowd Favorites</h2>
+        <p class="text-brand-100 text-base md:text-lg max-w-lg mx-auto">A sneak peek at our most requested flavors.</p>
       </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <article class="card3d perspective-1000 group cursor-pointer h-full" data-aos="fade-up" data-aos-delay="0">
-          <div class="inner glass-panel p-4 rounded-[2rem] shadow-soft transition-shadow group-hover:shadow-2xl h-full flex flex-col">
-            <div class="rounded-2xl overflow-hidden mb-4 relative flex-grow bg-gray-100">
-               <img src="https://images.food52.com/bgGP_hq4itaBRLagVH1Vq1novjc=/ff0c177a-14d7-47f7-92a0-ecbf51c0443b--2019-0430_homemade-brown-sugar-boba_3x2_ty-mecham_023.jpeg?w=3840&q=75" alt="Pearl milk tea" class="w-full h-48 md:h-56 object-cover block">
-               <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-               <span class="absolute bottom-3 left-3 bg-white/20 backdrop-blur-md text-white text-xs font-bold px-2 py-1 rounded shadow">#1 Best Seller</span>
-            </div>
-            <div class="px-2 pb-2">
-              <h4 class="font-bold text-lg text-brand-900">Classic Brown Sugar</h4>
-              <p class="text-sm text-gray-500 mt-1">Rich black tea, milk, and warm brown sugar tapioca pearls.</p>
-            </div>
-          </div>
-        </article>
-
-        <article class="card3d perspective-1000 group cursor-pointer h-full" data-aos="fade-up" data-aos-delay="100">
-          <div class="inner glass-panel p-4 rounded-[2rem] shadow-soft transition-shadow group-hover:shadow-2xl h-full flex flex-col border-brand-50">
-            <div class="rounded-2xl overflow-hidden mb-4 relative flex-grow bg-gray-100">
-               <img src="https://lh7-rt.googleusercontent.com/docsz/AD_4nXcaTBLqpMR9DCMaol2Shz2BUHnhuwfdnbiINVwjkh4OVyvKXI9Hw8cqPMmYid2ybGY07aEtstUmpliXH2m_RFvmz-ma3GCRIlG9CYQDrtqz1ivq3eZDfJN1v0uxox609LGaiHgatg?key=0uRYkzTVb6_zdCbGMkkZ_A" alt="Taro milk tea" class="w-full h-48 md:h-56 object-cover block">
-            </div>
-            <div class="px-2 pb-2">
-              <h4 class="font-bold text-lg text-brand-900">Taro Fantasy</h4>
-              <p class="text-sm text-gray-500 mt-1">Creamy, sweet, and nutty taro blended to perfection.</p>
-            </div>
-          </div>
-        </article>
-
-        <article class="card3d perspective-1000 group cursor-pointer h-full" data-aos="fade-up" data-aos-delay="200">
-          <div class="inner glass-panel p-4 rounded-[2rem] shadow-soft transition-shadow group-hover:shadow-2xl h-full flex flex-col border-brand-50">
-            <div class="rounded-2xl overflow-hidden mb-4 relative flex-grow bg-gray-100">
-               <img src="https://takestwoeggs.com/wp-content/uploads/2021/10/Mango-Green-Tea-Takestwoeggs.jpg" alt="Mango green tea" class="w-full h-48 md:h-56 object-cover block">
-            </div>
-            <div class="px-2 pb-2">
-              <h4 class="font-bold text-lg text-brand-900">Mango Green Tea</h4>
-              <p class="text-sm text-gray-500 mt-1">Refreshing jasmine green tea infused with real mango puree.</p>
-            </div>
-          </div>
-        </article>
-
-        <article class="card3d perspective-1000 group cursor-pointer h-full" data-aos="fade-up" data-aos-delay="300">
-          <div class="inner glass-panel p-4 rounded-[2rem] shadow-soft transition-shadow group-hover:shadow-2xl h-full flex flex-col border-orange-100 bg-orange-50/50">
-            <div class="rounded-2xl overflow-hidden mb-4 relative flex-grow bg-gray-100">
-               <img src="https://platform.eater.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/8810657/bubble_waffle.jpg?quality=90&strip=all&crop=0%2C0.0099980003999178%2C100%2C99.9800039992&w=2400" alt="Bubble waffle" class="w-full h-48 md:h-56 object-cover block">
-               <span class="absolute top-3 right-3 bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow"><i class="fa-solid fa-fire text-[10px]"></i> Hot Food</span>
-            </div>
-            <div class="px-2 pb-2">
-              <h4 class="font-bold text-lg text-brand-900">Hong Kong Bubble Waffle</h4>
-              <p class="text-sm text-gray-500 mt-1">Crispy outside, fluffy inside. Served hot alongside your drinks.</p>
-            </div>
-          </div>
-        </article>
+      
+      <div class="ticker-track" data-aos="fade-up" data-aos-delay="100">
+        <!-- FIRST SET OF DRINKS (All PNGs dynamically loaded) -->
+        <div class="ticker-half">
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533790747826-2MZ0XV55WKNY9H62FGEM/%C2%AD%5B%C2%AD%C2%BB%C2%BA%C3%B1%C2%AF%C3%B9Jasmine+Green+Tea.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533790741321-GELBUJXF7Q6M4GMON4O3/%C2%A6%C3%8A%C2%AD%C2%BB%C2%AC%C3%B5%C2%AF%C3%B9Passion+Fruit+Black+Tea.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533790782786-OBAOBNBH6RILME6Y7644/%C2%A6%C3%8A%C2%AD%C2%BB%C3%82AQPassion+Fruit+QQ.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533790793140-P616DUAZJ06PXEWMW0IQ/%C2%A6%C3%8A%C2%AD%C2%BB%C2%AAG%C2%A6B%C2%A8FPassion+Fruit+Slush.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533790823733-XIM3BK2QZPSE609TGLWT/%C2%A6%C3%8A%C2%AD%C2%BB%C2%BA%C3%B1%C2%AF%C3%B9Passion+Fruit+Green.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533790842195-HUM6JTQQ0ZJXUTTLX4MV/%C2%A6t%C2%AAv%C2%AA%C3%B7%C2%AE%C3%89%C2%A6B%C2%A8FMatcha+Red+Bean+Smoothie.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533790882826-PRKWM825T2B4FKACKEQ2/%C2%A6t%C2%AAv%C2%AA%C3%B7%C2%AE%C3%89%C2%A5%C2%A4%C2%AF%C3%B9Matcha+Red+Bean+Milk+Tea.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533790894725-I9OZGOGA2QMELR2FV48W/%C2%A6w%C2%B7%C3%8B%C3%85K%C3%86%5B%C2%AD%C2%B5Anxi+Tieguanyin+Tea.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533790926342-OP4QHV6F4V6SOGTDAH0B/%C2%A8%7E%C2%AAG%C2%AC%C3%B5%C2%AF%C3%B9Mango+Black+Tea.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533790943185-8BQCY10R6ZQNS5HMNOZD/%C2%A8%7E%C2%AAG%C2%AD%C2%B7%C2%A8%C3%BD%C2%A6B%C2%A8FMango+Smoothie.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533790961599-PPNXGWC70WX2U7HU552T/%C2%A8%7E%C2%AAG%C3%80u%C2%AE%C3%A6Mango+Yoghurt+Juice.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533790985201-81UDKS3NP2D4X1MY36KH/%C2%A8%7E%C2%AAG%C2%BA%C3%B1Mango+Green+Tea.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533791001699-GCYYYRMDHGENJ98CQDDK/%C2%A8%C2%A1%C2%AD%C2%BB%C2%A5%C2%A4%C2%AF%C3%B9Taro+Milk+Tea.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533791039565-Q3UAOV5YYCA48DQUVXSA/%C2%A8%C2%A1%C3%80Y%C2%A5%C2%AC%C2%A4B%C2%A5%C2%A4%C2%AF%C3%B9Taro+Pudding+Milk+Tea.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533791045859-96NDPD50CEAL8P5983AT/%C2%A8%C2%A1%C3%80Y%C2%AC%C3%B5%C2%A8%C2%A7%C2%A5%C2%A4%C2%AF%C3%B9Taro+Red+Bean+Pearl+Milk+Tea.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533791081533-BJ3RZDGHC0U5A8BZ93DU/%C2%A8%C3%A5%C3%82%C3%83%C2%BAd%C2%AAG%C2%A5%C2%A4%C2%AF%C3%B9Classic+Hazelnut+Milk+Tea.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533791091280-2W567LCY8KEK5XCXQ208/%C2%AF%C3%AF%C2%AAK%C2%AC%C3%B5%C2%AF%C3%B9Lychee+Black+Tea.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533791125636-6H1PASFBWM4LLAW69G5E/%C2%AF%C3%AF%C2%AAK%C3%80u%C2%AE%C3%A6QQLychee+Yoghurt+QQ.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533791137321-24JFTQRTBGVWI37Q9C9M/%C2%AF%C3%AF%C2%AAK%C2%BA%C3%B1Lychee+Green+Tea.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533791181720-3E292V7UGFUS1RTP4XSV/%C2%AF%C3%B3%C2%B2%C3%B9%C2%A6B%C2%A8FStrawberry+Slush.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533791183168-NZ6FQWSQ1LCXUUZ6ZKBL/%C2%AF%C3%B3%C2%B2%C3%B9%C2%BC%C3%9A%C3%81%C2%A2Strawberry+Au+Lait.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533791227834-HUP49QYFYAJRQCM02TDY/%C2%AF%C3%B3%C2%B2%C3%B9%C3%80u%C2%AE%C3%A6%C2%A6B%C2%A8FStrawberry+Yoghurt+Smoothie.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533791224109-WPJVLQQ0MI06NLGH8UF8/%C2%AFQ%C3%80s%C2%AF%C3%B9%C2%AE%C2%B3%C3%85KOolong+Tea+Latte.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533791269573-1T89Z2VRXCDQWZ0I030L/%C2%AFQ%C3%80s%C2%AF%C3%B9%C2%BC%7D%C2%B4%C2%B5Oolong+Tea+Mousse.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533791276409-ZBWG18YD4RF0E1H53ECI/%C2%B8%C2%B2%C2%B5%C3%A5%C2%ACc%C2%AC%C3%B5%C2%AF%C3%B9Grapefruit+Black+Tea.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533791313739-4QFOQTCBYOPVMCBK9PBZ/%C2%B8%C2%B2%C2%B5%C3%A5%C2%ACcQQGrapefruit+QQ.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533791313314-BG1XCREZEMFVLYOU56CK/%C2%B8%C3%81%C2%BBe%C3%82f%C3%82c%C3%84%C2%AA%C3%AEPHoney+Lemon+Aloe.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533791365001-WP6QOP8W2CD0IP5CY4RG/%C2%A4%40%C2%B5f%C2%AFN%C2%AF%C3%B9Roasted+Tea.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533791364747-I0IKSO3KETIDT8ZH4I8O/%C2%A4%C3%A9%C2%A5X%C2%A9%C3%9B%C2%B5P%C2%AFN%C2%A5%C2%A4%C2%AD%C3%A1Grass+Jelly+Roasted+Milk+Tea.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533791402967-TZWZQTYY4O1AVW9BWUMA/%C2%A4%C3%A9%C2%A5X%C2%A9%C3%9B%C2%B5P%C2%AFN%C2%A5%C2%A4Chatime+Roasted+Milk+Tea.png?format=750w" alt="Drink"></div>
+        </div>
+        
+        <!-- EXACT DUPLICATE FOR SEAMLESS INFINITE LOOP -->
+        <div class="ticker-half">
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533790747826-2MZ0XV55WKNY9H62FGEM/%C2%AD%5B%C2%AD%C2%BB%C2%BA%C3%B1%C2%AF%C3%B9Jasmine+Green+Tea.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533790741321-GELBUJXF7Q6M4GMON4O3/%C2%A6%C3%8A%C2%AD%C2%BB%C2%AC%C3%B5%C2%AF%C3%B9Passion+Fruit+Black+Tea.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533790782786-OBAOBNBH6RILME6Y7644/%C2%A6%C3%8A%C2%AD%C2%BB%C3%82AQPassion+Fruit+QQ.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533790793140-P616DUAZJ06PXEWMW0IQ/%C2%A6%C3%8A%C2%AD%C2%BB%C2%AAG%C2%A6B%C2%A8FPassion+Fruit+Slush.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533790823733-XIM3BK2QZPSE609TGLWT/%C2%A6%C3%8A%C2%AD%C2%BB%C2%BA%C3%B1%C2%AF%C3%B9Passion+Fruit+Green.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533790842195-HUM6JTQQ0ZJXUTTLX4MV/%C2%A6t%C2%AAv%C2%AA%C3%B7%C2%AE%C3%89%C2%A6B%C2%A8FMatcha+Red+Bean+Smoothie.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533790882826-PRKWM825T2B4FKACKEQ2/%C2%A6t%C2%AAv%C2%AA%C3%B7%C2%AE%C3%89%C2%A5%C2%A4%C2%AF%C3%B9Matcha+Red+Bean+Milk+Tea.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533790894725-I9OZGOGA2QMELR2FV48W/%C2%A6w%C2%B7%C3%8B%C3%85K%C3%86%5B%C2%AD%C2%B5Anxi+Tieguanyin+Tea.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533790926342-OP4QHV6F4V6SOGTDAH0B/%C2%A8%7E%C2%AAG%C2%AC%C3%B5%C2%AF%C3%B9Mango+Black+Tea.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533790943185-8BQCY10R6ZQNS5HMNOZD/%C2%A8%7E%C2%AAG%C2%AD%C2%B7%C2%A8%C3%BD%C2%A6B%C2%A8FMango+Smoothie.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533790961599-PPNXGWC70WX2U7HU552T/%C2%A8%7E%C2%AAG%C3%80u%C2%AE%C3%A6Mango+Yoghurt+Juice.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533790985201-81UDKS3NP2D4X1MY36KH/%C2%A8%7E%C2%AAG%C2%BA%C3%B1Mango+Green+Tea.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533791001699-GCYYYRMDHGENJ98CQDDK/%C2%A8%C2%A1%C2%AD%C2%BB%C2%A5%C2%A4%C2%AF%C3%B9Taro+Milk+Tea.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533791039565-Q3UAOV5YYCA48DQUVXSA/%C2%A8%C2%A1%C3%80Y%C2%A5%C2%AC%C2%A4B%C2%A5%C2%A4%C2%AF%C3%B9Taro+Pudding+Milk+Tea.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533791045859-96NDPD50CEAL8P5983AT/%C2%A8%C2%A1%C3%80Y%C2%AC%C3%B5%C2%A8%C2%A7%C2%A5%C2%A4%C2%AF%C3%B9Taro+Red+Bean+Pearl+Milk+Tea.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533791081533-BJ3RZDGHC0U5A8BZ93DU/%C2%A8%C3%A5%C3%82%C3%83%C2%BAd%C2%AAG%C2%A5%C2%A4%C2%AF%C3%B9Classic+Hazelnut+Milk+Tea.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533791091280-2W567LCY8KEK5XCXQ208/%C2%AF%C3%AF%C2%AAK%C2%AC%C3%B5%C2%AF%C3%B9Lychee+Black+Tea.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533791125636-6H1PASFBWM4LLAW69G5E/%C2%AF%C3%AF%C2%AAK%C3%80u%C2%AE%C3%A6QQLychee+Yoghurt+QQ.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533791137321-24JFTQRTBGVWI37Q9C9M/%C2%AF%C3%AF%C2%AAK%C2%BA%C3%B1Lychee+Green+Tea.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533791181720-3E292V7UGFUS1RTP4XSV/%C2%AF%C3%B3%C2%B2%C3%B9%C2%A6B%C2%A8FStrawberry+Slush.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533791183168-NZ6FQWSQ1LCXUUZ6ZKBL/%C2%AF%C3%B3%C2%B2%C3%B9%C2%BC%C3%9A%C3%81%C2%A2Strawberry+Au+Lait.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533791227834-HUP49QYFYAJRQCM02TDY/%C2%AF%C3%B3%C2%B2%C3%B9%C3%80u%C2%AE%C3%A6%C2%A6B%C2%A8FStrawberry+Yoghurt+Smoothie.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533791224109-WPJVLQQ0MI06NLGH8UF8/%C2%AFQ%C3%80s%C2%AF%C3%B9%C2%AE%C2%B3%C3%85KOolong+Tea+Latte.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533791269573-1T89Z2VRXCDQWZ0I030L/%C2%AFQ%C3%80s%C2%AF%C3%B9%C2%BC%7D%C2%B4%C2%B5Oolong+Tea+Mousse.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533791276409-ZBWG18YD4RF0E1H53ECI/%C2%B8%C2%B2%C2%B5%C3%A5%C2%ACc%C2%AC%C3%B5%C2%AF%C3%B9Grapefruit+Black+Tea.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533791313739-4QFOQTCBYOPVMCBK9PBZ/%C2%B8%C2%B2%C2%B5%C3%A5%C2%ACcQQGrapefruit+QQ.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533791313314-BG1XCREZEMFVLYOU56CK/%C2%B8%C3%81%C2%BBe%C3%82f%C3%82c%C3%84%C2%AA%C3%AEPHoney+Lemon+Aloe.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533791365001-WP6QOP8W2CD0IP5CY4RG/%C2%A4%40%C2%B5f%C2%AFN%C2%AF%C3%B9Roasted+Tea.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533791364747-I0IKSO3KETIDT8ZH4I8O/%C2%A4%C3%A9%C2%A5X%C2%A9%C3%9B%C2%B5P%C2%AFN%C2%A5%C2%A4%C2%AD%C3%A1Grass+Jelly+Roasted+Milk+Tea.png?format=750w" alt="Drink"></div>
+          <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533791402967-TZWZQTYY4O1AVW9BWUMA/%C2%A4%C3%A9%C2%A5X%C2%A9%C3%9B%C2%B5P%C2%AFN%C2%A5%C2%A4Chatime+Roasted+Milk+Tea.png?format=750w" alt="Drink"></div>
+        </div>
+      </div>
+      
+      <!-- Wavy Bottom SVG Separator -->
+      <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none transform translate-y-[2px]">
+          <svg viewBox="0 0 1200 120" preserveAspectRatio="none" class="relative block w-full h-[30px] md:h-[60px]">
+              <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C59.71,118.08,130.83,119.21,192.39,101.4Z" fill="#ffffff"></path>
+          </svg>
       </div>
     </section>
 
@@ -568,7 +651,7 @@
                     <option value="cart">2. Boba Cart (Indoor Pop-up)</option>
                     <option value="cooler">3. Boba Cooler (Self-Serve)</option>
                     <option value="catering">4. Catering / Private Event</option>
-                    <option value="waffles">5. Bubble Waffles (Food Add-On)</option>
+                    <option value="waffles">5. Hongkong Waffles (Food Add-On)</option>
                   </select>
                   <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-brand-600">
                     <i class="fa-solid fa-chevron-down text-sm"></i>
@@ -646,11 +729,21 @@
               </div>
 
               <div class="mt-6 md:mt-8 pt-4 md:pt-6 border-t border-brand-800/50 space-y-4">
+                <!-- Mail Us -->
                 <div class="flex items-center gap-4">
-                  <div class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-accent flex items-center justify-center text-brand-950 text-lg md:text-xl"><i class="fa-solid fa-phone"></i></div>
+                  <div class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-accent flex items-center justify-center text-brand-950 text-lg md:text-xl"><i class="fa-solid fa-envelope"></i></div>
                   <div>
-                    <div class="text-[10px] md:text-xs text-brand-100 uppercase tracking-wider">Call Us</div>
-                    <a href="tel:+18001234567" class="font-bold text-base md:text-lg hover:text-accent transition-colors text-white">+1 (800) 123-4567</a>
+                    <div class="text-[10px] md:text-xs text-brand-100 uppercase tracking-wider">Mail Us</div>
+                    <a href="mailto:chatimeofmobile@hotmail.com" class="font-bold text-sm md:text-base hover:text-accent transition-colors text-white break-all">chatimeofmobile@hotmail.com</a>
+                  </div>
+                </div>
+                
+                <!-- Service Area Location -->
+                <div class="flex items-center gap-4">
+                  <div class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-accent flex items-center justify-center text-brand-950 text-lg md:text-xl"><i class="fa-solid fa-location-dot"></i></div>
+                  <div>
+                    <div class="text-[10px] md:text-xs text-brand-100 uppercase tracking-wider">Service Area</div>
+                    <p class="font-bold text-sm md:text-base text-white">Serving events throughout Mobile, Alabama</p>
                   </div>
                 </div>
               </div>
@@ -669,8 +762,8 @@
         <div class="flex flex-col md:flex-row items-center gap-4">
           <img src="Chatime_Stacked Logo_Social media_2.jpg" alt="logo small" class="w-16 h-16 rounded-xl object-cover shadow-sm border border-brand-800" />
           <div class="flex flex-col justify-center">
-            <strong class="font-display text-xl md:text-2xl text-white block leading-none">Chatime</strong>
-            <span class="text-[10px] md:text-xs text-accent font-bold tracking-wide uppercase mt-1">Mobile's best boba joint</span>
+            <strong class="font-display text-xl md:text-2xl text-white block leading-none">Mobile's Best</strong>
+            <span class="text-[10px] md:text-xs text-accent font-bold tracking-wide uppercase mt-1">Boba Joint</span>
           </div>
         </div>
 
@@ -682,7 +775,7 @@
       </div>
 
       <div class="border-t border-brand-900 pt-6 md:pt-8 flex justify-center md:justify-start text-xs md:text-sm text-brand-100/50">
-        <p>© 2026 Chatime Food Truck & Catering. All rights reserved.</p>
+        <p>© 2026 Mobile's Best Boba Joint. All rights reserved.</p>
       </div>
     </div>
   </footer>
@@ -730,7 +823,7 @@
                 // Logo text update (Purple and Green on white bg)
                 brandTitle.classList.remove('text-white');
                 brandTitle.classList.add('text-brand-800');
-                brandSubtitle.classList.remove('text-accent');
+                brandSubtitle.classList.remove('text-white');
                 brandSubtitle.classList.add('text-brand-500');
 
                 // Links update (Gray on white bg)
@@ -747,11 +840,11 @@
                 header.classList.remove('bg-white/95', 'backdrop-blur-md', 'shadow-md', 'border-gray-200');
                 header.classList.add('bg-transparent', 'border-transparent');
                 
-                // Logo text update (White and Accent against dark hero)
+                // Logo text update (White against dark hero)
                 brandTitle.classList.remove('text-brand-800');
                 brandTitle.classList.add('text-white');
                 brandSubtitle.classList.remove('text-brand-500');
-                brandSubtitle.classList.add('text-accent');
+                brandSubtitle.classList.add('text-white');
 
                 // Links update (White against dark hero)
                 navLinks.forEach(link => {
@@ -791,17 +884,6 @@
       if (truck && route){
         gsap.to(truck, { motionPath: { path: route, align: route, autoRotate: true, alignOrigin: [0.5, 0.5] }, ease: 'power1.inOut', duration: 15, repeat: -1, repeatDelay: 0.5 });
       }
-
-      const tiltEls = document.querySelectorAll('.card3d');
-      tiltEls.forEach(el => {
-        el.addEventListener('mousemove', (ev) => {
-          const r = el.getBoundingClientRect();
-          const ry = ((ev.clientX - r.left) / r.width - 0.5) * 15;
-          const rx = ((ev.clientY - r.top) / r.height - 0.5) * -15;
-          gsap.to(el, { rotationY: ry, rotationX: rx, scale: 1.05, transformPerspective: 1000, duration: 0.4, ease: 'power2.out' });
-        });
-        el.addEventListener('mouseleave', () => { gsap.to(el, { rotationX: 0, rotationY: 0, scale: 1, duration: 0.6, ease: 'power3.out' }); });
-      });
     }
 
     function initBoba(){
@@ -839,11 +921,13 @@
         
         serviceBtns.forEach(btn => {
           if(btn.dataset.service === serviceVal){
+             // Active state
              btn.classList.remove('bg-white/10', 'text-white', 'border-white/10');
              btn.classList.add('bg-accent', 'text-brand-950', 'border-accent', 'font-bold', 'shadow-lg', 'shadow-accent/40');
              btn.querySelector('.icon-marker').classList.remove('text-accent');
              btn.querySelector('.icon-marker').classList.add('text-brand-950');
           } else {
+             // Inactive state
              btn.classList.add('bg-white/10', 'text-white', 'border-white/10');
              btn.classList.remove('bg-accent', 'text-brand-950', 'border-accent', 'font-bold', 'shadow-lg', 'shadow-accent/40');
              btn.querySelector('.icon-marker').classList.add('text-accent');
