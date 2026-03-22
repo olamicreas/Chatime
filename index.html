@@ -117,14 +117,14 @@
     
     /* Transparent PNG Floating Drink Item */
     .drink-item {
-      height: 240px; /* Mobile height */
+      height: 240px;
       width: auto;
       transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       cursor: pointer;
     }
     @media (min-width: 768px) {
       .drink-item {
-        height: 380px; /* Desktop height */
+        height: 380px;
       }
     }
     .drink-item:hover {
@@ -165,24 +165,26 @@
       </a>
 
       <!-- Desktop Nav -->
-      <nav class="hidden md:flex items-center gap-8 font-medium">
+      <nav class="hidden lg:flex items-center gap-6 xl:gap-8 font-medium">
         <a href="#history" class="desktop-nav-link text-white/90 hover:text-white transition-colors duration-300">Our Story</a>
         <a href="#services" class="desktop-nav-link text-white/90 hover:text-white transition-colors duration-300">Services</a>
+        <a href="#fundraising" class="desktop-nav-link text-white/90 hover:text-white transition-colors duration-300">Fundraising</a>
         <a href="#menu" class="desktop-nav-link text-white/90 hover:text-white transition-colors duration-300">Menu</a>
         <a href="#gallery" class="desktop-nav-link text-white/90 hover:text-white transition-colors duration-300">Gallery</a>
-        <a href="#booking" class="bg-accent text-brand-950 px-6 py-2.5 rounded-full hover:bg-accent-hover hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 font-bold text-sm shadow-md">Request Quote</a>
+        <a href="#booking" class="bg-accent text-brand-950 px-6 py-2.5 rounded-full hover:bg-accent-hover hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 font-bold text-sm shadow-md ml-2">Request Quote</a>
       </nav>
 
       <!-- Mobile Toggle -->
-      <button id="mobile-menu-btn" class="md:hidden text-white text-2xl p-2 focus:outline-none transition-colors duration-300" aria-label="Toggle menu">
+      <button id="mobile-menu-btn" class="lg:hidden text-white text-2xl p-2 focus:outline-none transition-colors duration-300" aria-label="Toggle menu">
         <i class="fa-solid fa-bars"></i>
       </button>
     </div>
 
     <!-- Mobile Nav Overlay -->
-    <div id="mobile-menu" class="absolute top-[100%] left-0 w-full bg-white/95 backdrop-blur-md border-b border-gray-200 flex flex-col items-center py-6 gap-6 shadow-xl origin-top transform scale-y-0 opacity-0 transition-all duration-300 md:hidden">
+    <div id="mobile-menu" class="absolute top-[100%] left-0 w-full bg-white/95 backdrop-blur-md border-b border-gray-200 flex flex-col items-center py-6 gap-6 shadow-xl origin-top transform scale-y-0 opacity-0 transition-all duration-300 lg:hidden">
       <a href="#history" class="mobile-link text-lg font-medium text-gray-800 hover:text-brand-800">Our Story</a>
       <a href="#services" class="mobile-link text-lg font-medium text-gray-800 hover:text-brand-800">Services</a>
+      <a href="#fundraising" class="mobile-link text-lg font-medium text-gray-800 hover:text-brand-800">Fundraising</a>
       <a href="#menu" class="mobile-link text-lg font-medium text-gray-800 hover:text-brand-800">Menu</a>
       <a href="#gallery" class="mobile-link text-lg font-medium text-gray-800 hover:text-brand-800">Gallery</a>
       <a href="#booking" class="mobile-link bg-accent text-brand-950 px-8 py-3 rounded-full font-bold shadow-md">Request Quote</a>
@@ -220,7 +222,7 @@
           </div>
 
           <!-- Interactive Selector -->
-          <div data-aos="fade-up" data-aos-delay="300" class="glass-dark p-2.5 md:p-3 rounded-2xl inline-flex flex-col gap-2 md:gap-3 w-full sm:w-auto shadow-2xl border border-white/10">
+          <div data-aos="fade-up" data-aos-delay="300" class="glass-dark p-2.5 md:p-3 rounded-2xl inline-flex flex-col gap-2 md:gap-3 w-full lg:w-fit shadow-2xl border border-white/10">
             <span class="text-xs md:text-sm font-semibold text-gray-300 px-2 uppercase tracking-wide">Select your interest:</span>
             <div class="flex flex-wrap gap-2">
               <button data-service="truck" class="service-btn flex-1 sm:flex-none px-3 md:px-4 py-2 rounded-xl transition-all duration-300 font-medium flex items-center justify-center gap-2 text-xs md:text-sm group border">
@@ -237,6 +239,9 @@
               </button>
               <button data-service="waffles" class="service-btn flex-1 sm:flex-none px-3 md:px-4 py-2 rounded-xl transition-all duration-300 font-medium flex items-center justify-center gap-2 text-xs md:text-sm group border">
                 <i class="fa-solid fa-fire icon-marker group-hover:-translate-y-0.5 transition-transform"></i> Waffles
+              </button>
+              <button data-service="fundraising" class="service-btn flex-1 sm:flex-none px-3 md:px-4 py-2 rounded-xl transition-all duration-300 font-medium flex items-center justify-center gap-2 text-xs md:text-sm group border">
+                <i class="fa-solid fa-hand-holding-heart icon-marker group-hover:-translate-y-0.5 transition-transform"></i> Fundraising
               </button>
             </div>
           </div>
@@ -376,7 +381,7 @@
             </div>
             <div class="p-6 relative flex flex-col flex-grow">
               <h3 class="font-display font-bold text-xl text-gray-900 mb-2 group-hover:text-brand-600 transition-colors">1. Food Truck</h3>
-              <p class="text-gray-500 text-sm flex-grow">The full Chatime bubble tea truck that comes to your events and serves drinks incredibly fresh. Perfect for outdoor festivals and large gatherings.</p>
+              <p class="text-gray-500 text-sm flex-grow">The full bubble tea truck that comes to your events and serves drinks incredibly fresh. Perfect for outdoor festivals and large gatherings.</p>
               <div class="mt-4 md:mt-6 flex justify-end text-brand-600 transform group-hover:translate-x-1 transition-transform">
                 <i class="fa-solid fa-arrow-right text-xl text-accent"></i>
               </div>
@@ -453,6 +458,66 @@
       </div>
     </section>
 
+    <!-- NEW FUNDRAISING SECTION -->
+    <section id="fundraising" class="py-16 md:py-24 bg-brand-50 relative overflow-hidden">
+      <!-- Decorative background -->
+      <div class="absolute top-[-10%] right-[-5%] w-[40%] h-[50%] rounded-full bg-brand-500/10 blur-3xl pointer-events-none"></div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        <div class="glass-panel rounded-[2.5rem] md:rounded-[3rem] overflow-hidden shadow-2xl border border-brand-100 bg-white">
+          <div class="grid lg:grid-cols-2">
+            
+            <!-- Image Side -->
+            <div class="relative h-64 lg:h-auto" data-aos="fade-right">
+              <!-- A joyful, community-oriented placeholder image -->
+              <img src="https://images.unsplash.com/photo-1577563908411-5077b6dc7624?q=80&w=1200&auto=format&fit=crop" alt="Students enjoying boba" class="w-full h-full object-cover block">
+              <div class="absolute inset-0 bg-gradient-to-t from-brand-950/80 to-transparent flex flex-col justify-end p-8">
+                <div class="bg-accent text-brand-950 font-bold text-sm uppercase tracking-wide px-4 py-1.5 rounded-full w-fit mb-3">Community First</div>
+                <h3 class="font-display font-bold text-3xl text-white">Givebacks & Partnerships.</h3>
+              </div>
+            </div>
+            
+            <!-- Text Side -->
+            <div class="p-8 md:p-12 lg:p-16 flex flex-col justify-center" data-aos="fade-left">
+              <h2 class="font-display font-bold text-3xl md:text-5xl text-brand-900 mb-6 leading-tight">Effortless School & Community Fundraising</h2>
+              <p class="text-gray-600 text-base md:text-lg mb-6 leading-relaxed">
+                Tired of selling wrapping paper and cookie dough? Let us bring the party to you! Our Giveback Program is the easiest and most delicious way to raise money for your school, PTO/PTA, sports team, or charity.
+              </p>
+              
+              <ul class="space-y-4 mb-8">
+                <li class="flex items-start gap-4">
+                  <div class="w-8 h-8 rounded-full bg-brand-100 text-brand-800 flex items-center justify-center flex-shrink-0 mt-0.5"><i class="fa-solid fa-check"></i></div>
+                  <div>
+                    <h4 class="font-bold text-brand-900">Zero Upfront Costs</h4>
+                    <p class="text-sm text-gray-500">You don't pay a dime to have us show up. We handle all the setup, serving, and cleanup.</p>
+                  </div>
+                </li>
+                <li class="flex items-start gap-4">
+                  <div class="w-8 h-8 rounded-full bg-brand-100 text-brand-800 flex items-center justify-center flex-shrink-0 mt-0.5"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+                  <div>
+                    <h4 class="font-bold text-brand-900">Generous Givebacks</h4>
+                    <p class="text-sm text-gray-500">A percentage of every single sale goes directly back to your organization.</p>
+                  </div>
+                </li>
+                <li class="flex items-start gap-4">
+                  <div class="w-8 h-8 rounded-full bg-brand-100 text-brand-800 flex items-center justify-center flex-shrink-0 mt-0.5"><i class="fa-solid fa-face-smile"></i></div>
+                  <div>
+                    <h4 class="font-bold text-brand-900">Guaranteed Crowd Pleaser</h4>
+                    <p class="text-sm text-gray-500">Students and parents love boba and waffles. It's an event everyone looks forward to!</p>
+                  </div>
+                </li>
+              </ul>
+              
+              <a href="#booking" onclick="document.getElementById('service-select').value='fundraising'; window.location.hash='booking';" class="bg-brand-800 text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:bg-brand-900 hover:-translate-y-1 transition-all duration-300 w-full sm:w-fit text-center flex items-center justify-center gap-2">
+                Book a Fundraiser <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- NEW INFINITE MENU CAROUSEL -->
     <section id="menu" class="ticker-wrap relative overflow-hidden bg-brand-800 border-t border-b border-brand-900">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 mb-8 md:mb-12 text-center" data-aos="fade-up">
@@ -461,7 +526,7 @@
       </div>
       
       <div class="ticker-track" data-aos="fade-up" data-aos-delay="100">
-        <!-- FIRST SET OF DRINKS (All PNGs dynamically loaded) -->
+        <!-- FIRST SET OF DRINKS -->
         <div class="ticker-half">
           <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533790747826-2MZ0XV55WKNY9H62FGEM/%C2%AD%5B%C2%AD%C2%BB%C2%BA%C3%B1%C2%AF%C3%B9Jasmine+Green+Tea.png?format=750w" alt="Drink"></div>
           <div class="drink-item"><img src="https://images.squarespace-cdn.com/content/v1/5b5fb257ee175943b4f4ae6b/1533790741321-GELBUJXF7Q6M4GMON4O3/%C2%A6%C3%8A%C2%AD%C2%BB%C2%AC%C3%B5%C2%AF%C3%B9Passion+Fruit+Black+Tea.png?format=750w" alt="Drink"></div>
@@ -653,6 +718,7 @@
                     <option value="cooler">3. Boba Cooler (Self-Serve)</option>
                     <option value="catering">4. Catering / Private Event</option>
                     <option value="waffles">5. Hongkong Waffles (Food Add-On)</option>
+                    <option value="fundraising">6. School Partnership / Fundraising</option>
                   </select>
                   <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-brand-600">
                     <i class="fa-solid fa-chevron-down text-sm"></i>
